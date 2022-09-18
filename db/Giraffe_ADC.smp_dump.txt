@@ -1,0 +1,7 @@
+
+State Machine - |Giraffe_ADC|uart_tx:u_uart_tx|cs
+Name cs.STOP cs.DATA cs.START cs.IDLE 
+cs.IDLE 0 0 0 0 
+cs.START 0 0 1 1 
+cs.DATA 0 1 0 1 
+cs.STOP 1 0 0 1 

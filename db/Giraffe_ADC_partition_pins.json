@@ -1,0 +1,89 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "tx2M",
+					"strict" : false
+				},
+				{
+					"name" : "rstn_adc",
+					"strict" : false
+				},
+				{
+					"name" : "clk_adc",
+					"strict" : false
+				},
+				{
+					"name" : "calib_ena_adc",
+					"strict" : false
+				},
+				{
+					"name" : "adc_ena",
+					"strict" : false
+				},
+				{
+					"name" : "nrst",
+					"strict" : false
+				},
+				{
+					"name" : "calib_ena_FPGA",
+					"strict" : false
+				},
+				{
+					"name" : "adc_ack",
+					"strict" : false
+				},
+				{
+					"name" : "adc_ack_sub",
+					"strict" : false
+				},
+				{
+					"name" : "clk_50M",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[1]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[3]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[2]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[0]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[4]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[5]",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tms",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tck",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdi",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdo",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

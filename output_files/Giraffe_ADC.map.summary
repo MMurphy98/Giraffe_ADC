@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Fri Sep 16 10:14:56 2022
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+Revision Name : Giraffe_ADC
+Top-level Entity Name : Giraffe_ADC
+Family : Cyclone IV E
+Total logic elements : 914
+    Total combinational functions : 614
+    Dedicated logic registers : 672
+Total registers : 672
+Total pins : 16
+Total virtual pins : 0
+Total memory bits : 7,168
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
