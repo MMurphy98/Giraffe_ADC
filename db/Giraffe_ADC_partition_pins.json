@@ -44,6 +44,14 @@
 					"strict" : false
 				},
 				{
+					"name" : "dout_adc[5]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[4]",
+					"strict" : false
+				},
+				{
 					"name" : "dout_adc[1]",
 					"strict" : false
 				},
@@ -57,30 +65,6 @@
 				},
 				{
 					"name" : "dout_adc[0]",
-					"strict" : false
-				},
-				{
-					"name" : "dout_adc[4]",
-					"strict" : false
-				},
-				{
-					"name" : "dout_adc[5]",
-					"strict" : false
-				},
-				{
-					"name" : "altera_reserved_tms",
-					"strict" : false
-				},
-				{
-					"name" : "altera_reserved_tck",
-					"strict" : false
-				},
-				{
-					"name" : "altera_reserved_tdi",
-					"strict" : false
-				},
-				{
-					"name" : "altera_reserved_tdo",
 					"strict" : false
 				}
 			]

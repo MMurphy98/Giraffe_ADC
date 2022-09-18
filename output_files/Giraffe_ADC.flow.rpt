@@ -1,5 +1,5 @@
 Flow report for Giraffe_ADC
-Fri Sep 16 10:15:23 2022
+Sun Sep 18 12:48:25 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -40,22 +40,22 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Fri Sep 16 10:15:23 2022           ;
+; Flow Status                        ; Successful - Sun Sep 18 12:48:25 2022           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; Giraffe_ADC                                     ;
 ; Top-level Entity Name              ; Giraffe_ADC                                     ;
 ; Family                             ; Cyclone IV E                                    ;
 ; Device                             ; EP4CE115F29C7                                   ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 893 / 114,480 ( < 1 % )                         ;
-;     Total combinational functions  ; 616 / 114,480 ( < 1 % )                         ;
-;     Dedicated logic registers      ; 672 / 114,480 ( < 1 % )                         ;
-; Total registers                    ; 672                                             ;
-; Total pins                         ; 16 / 529 ( 3 % )                                ;
+; Total logic elements               ; 131                                             ;
+;     Total combinational functions  ; 131                                             ;
+;     Dedicated logic registers      ; 75                                              ;
+; Total registers                    ; 75                                              ;
+; Total pins                         ; 16                                              ;
 ; Total virtual pins                 ; 0                                               ;
-; Total memory bits                  ; 7,168 / 3,981,312 ( < 1 % )                     ;
-; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                                 ;
-; Total PLLs                         ; 0 / 4 ( 0 % )                                   ;
+; Total memory bits                  ; 0                                               ;
+; Embedded Multiplier 9-bit elements ; 0                                               ;
+; Total PLLs                         ; 0                                               ;
 +------------------------------------+-------------------------------------------------+
 
 
@@ -64,63 +64,35 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 09/16/2022 10:14:21 ;
+; Start date & time ; 09/18/2022 12:48:14 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Giraffe_ADC         ;
 +-------------------+---------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                                        ;
-+-------------------------------------+------------------------------------------------------------------+---------------+-------------+------------------+
-; Assignment Name                     ; Value                                                            ; Default Value ; Entity Name ; Section Id       ;
-+-------------------------------------+------------------------------------------------------------------+---------------+-------------+------------------+
-; COMPILER_SIGNATURE_ID               ; 158527626708287.166329446112268                                  ; --            ; --          ; --               ;
-; EDA_OUTPUT_DATA_FORMAT              ; Verilog Hdl                                                      ; --            ; --          ; eda_simulation   ;
-; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (Verilog)                                        ; <None>        ; --          ; --               ;
-; EDA_TIME_SCALE                      ; 1 ps                                                             ; --            ; --          ; eda_simulation   ;
-; ENABLE_SIGNALTAP                    ; On                                                               ; --            ; --          ; --               ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                                               ; --            ; --          ; --               ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                                                ; --            ; --          ; --               ;
-; NOMINAL_CORE_SUPPLY_VOLTAGE         ; 1.2V                                                             ; --            ; --          ; --               ;
-; NUM_PARALLEL_PROCESSORS             ; All                                                              ; --            ; --          ; --               ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family)                           ; --            ; --          ; Top              ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family)                           ; --            ; --          ; Top              ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family)                           ; --            ; --          ; Top              ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                              ; --            ; --          ; --               ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                            ; --            ; --          ; --               ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                     ; --            ; --          ; --               ;
-; SLD_FILE                            ; db/stp1_auto_stripped.stp                                        ; --            ; --          ; --               ;
-; SLD_NODE_CREATOR_ID                 ; 110                                                              ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_ENTITY_NAME                ; sld_signaltap                                                    ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_BLOCK_TYPE=AUTO                                          ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_NODE_INFO=805334528                                          ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0                    ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ATTRIBUTE_MEM_MODE=OFF                                       ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_FLOW_USE_GENERATED=0                                   ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STATE_BITS=11                                                ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_BUFFER_FULL_STOP=1                                           ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_CURRENT_RESOURCE_WIDTH=1                                     ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INCREMENTAL_ROUTING=1                                        ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL=1                                              ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_PIPELINE=0                                           ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_COUNTER_PIPELINE=0                                           ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ADVANCED_TRIGGER_ENTITY=basic,1,                             ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_LEVEL_PIPELINE=1                                     ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_ENABLE_ADVANCED_TRIGGER=0                                    ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_IN_ENABLED=0                                         ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_DATA_BITS=7                                                  ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_TRIGGER_BITS=7                                               ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_STORAGE_QUALIFIER_BITS=7                                     ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_POWER_UP_TRIGGER=1                                           ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK=000000000000000000000000000000100011101111111 ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_INVERSION_MASK_LENGTH=45                                     ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SEGMENT_SIZE=1024                                            ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_SAMPLE_DEPTH=1024                                            ; --            ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_PIPELINE=3                                               ; --            ; --          ; auto_signaltap_0 ;
-; SMART_RECOMPILE                     ; On                                                               ; Off           ; --          ; --               ;
-; USE_SIGNALTAP_FILE                  ; output_files/stp1.stp                                            ; --            ; --          ; --               ;
-+-------------------------------------+------------------------------------------------------------------+---------------+-------------+------------------+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                            ;
++-------------------------------------+----------------------------------------+---------------+-------------+----------------+
+; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id     ;
++-------------------------------------+----------------------------------------+---------------+-------------+----------------+
+; COMPILER_SIGNATURE_ID               ; 158527626708287.166347649414568        ; --            ; --          ; --             ;
+; EDA_OUTPUT_DATA_FORMAT              ; Verilog Hdl                            ; --            ; --          ; eda_simulation ;
+; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (Verilog)              ; <None>        ; --          ; --             ;
+; EDA_TIME_SCALE                      ; 1 ps                                   ; --            ; --          ; eda_simulation ;
+; ENABLE_SIGNALTAP                    ; Off                                    ; --            ; --          ; --             ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --             ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --             ;
+; NOMINAL_CORE_SUPPLY_VOLTAGE         ; 1.2V                                   ; --            ; --          ; --             ;
+; NUM_PARALLEL_PROCESSORS             ; All                                    ; --            ; --          ; --             ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; --          ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --            ; --          ; Top            ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --            ; --          ; Top            ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --            ; --          ; --             ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --          ; --             ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                           ; --            ; --          ; --             ;
+; SMART_RECOMPILE                     ; On                                     ; Off           ; --          ; --             ;
+; USE_SIGNALTAP_FILE                  ; output_files/stp1.stp                  ; --            ; --          ; --             ;
++-------------------------------------+----------------------------------------+---------------+-------------+----------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -128,12 +100,8 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:34     ; 1.0                     ; 4885 MB             ; 00:00:49                           ;
-; Fitter               ; 00:00:12     ; 1.1                     ; 6343 MB             ; 00:00:22                           ;
-; Assembler            ; 00:00:04     ; 1.0                     ; 4684 MB             ; 00:00:04                           ;
-; Timing Analyzer      ; 00:00:03     ; 1.1                     ; 4941 MB             ; 00:00:03                           ;
-; EDA Netlist Writer   ; 00:00:04     ; 1.0                     ; 4659 MB             ; 00:00:03                           ;
-; Total                ; 00:00:57     ; --                      ; --                  ; 00:01:21                           ;
+; Analysis & Synthesis ; 00:00:11     ; 1.0                     ; 4822 MB             ; 00:00:22                           ;
+; Total                ; 00:00:11     ; --                      ; --                  ; 00:00:22                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -143,10 +111,6 @@ refer to the applicable agreement for further details.
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
 ; Analysis & Synthesis ; T14              ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; T14              ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; T14              ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; T14              ; Windows 10 ; 10.0       ; x86_64         ;
-; EDA Netlist Writer   ; T14              ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -154,10 +118,6 @@ refer to the applicable agreement for further details.
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off Giraffe_ADC -c Giraffe_ADC
-quartus_fit --read_settings_files=off --write_settings_files=off Giraffe_ADC -c Giraffe_ADC
-quartus_asm --read_settings_files=off --write_settings_files=off Giraffe_ADC -c Giraffe_ADC
-quartus_sta Giraffe_ADC -c Giraffe_ADC
-quartus_eda --read_settings_files=off --write_settings_files=off Giraffe_ADC -c Giraffe_ADC
 
 
 
