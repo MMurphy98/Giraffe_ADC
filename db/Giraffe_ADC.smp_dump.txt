@@ -1,4 +1,11 @@
 
+State Machine - |Giraffe_ADC|cs
+Name cs.HOLD cs.SEND cs.SAMPLE cs.IDLE 
+cs.IDLE 0 0 0 0 
+cs.SAMPLE 0 0 1 1 
+cs.SEND 0 1 0 1 
+cs.HOLD 1 0 0 1 
+
 State Machine - |Giraffe_ADC|uart_tx:u_uart_tx|cs
 Name cs.STOP cs.DATA cs.START cs.IDLE 
 cs.IDLE 0 0 0 0 
