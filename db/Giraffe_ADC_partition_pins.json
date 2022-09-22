@@ -8,6 +8,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "LED_out[1]",
+					"strict" : false
+				},
+				{
 					"name" : "LED_out[2]",
 					"strict" : false
 				},
@@ -124,7 +128,27 @@
 					"strict" : false
 				},
 				{
+					"name" : "dout_adc[1]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[3]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[2]",
+					"strict" : false
+				},
+				{
 					"name" : "dout_adc[0]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[5]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[4]",
 					"strict" : false
 				}
 			]

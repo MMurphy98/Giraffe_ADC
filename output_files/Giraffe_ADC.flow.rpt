@@ -1,5 +1,5 @@
 Flow report for Giraffe_ADC
-Tue Sep 20 16:51:56 2022
+Thu Sep 22 21:43:27 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Tue Sep 20 16:51:56 2022           ;
+; Flow Status                        ; Successful - Thu Sep 22 21:43:27 2022           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; Giraffe_ADC                                     ;
 ; Top-level Entity Name              ; Giraffe_ADC                                     ;
 ; Family                             ; Cyclone IV E                                    ;
 ; Device                             ; EP4CE115F29C7                                   ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 326 / 114,480 ( < 1 % )                         ;
-;     Total combinational functions  ; 324 / 114,480 ( < 1 % )                         ;
-;     Dedicated logic registers      ; 208 / 114,480 ( < 1 % )                         ;
-; Total registers                    ; 208                                             ;
+; Total logic elements               ; 390 / 114,480 ( < 1 % )                         ;
+;     Total combinational functions  ; 357 / 114,480 ( < 1 % )                         ;
+;     Dedicated logic registers      ; 262 / 114,480 ( < 1 % )                         ;
+; Total registers                    ; 262                                             ;
 ; Total pins                         ; 38 / 529 ( 7 % )                                ;
 ; Total virtual pins                 ; 0                                               ;
-; Total memory bits                  ; 2,048 / 3,981,312 ( < 1 % )                     ;
+; Total memory bits                  ; 32,768 / 3,981,312 ( < 1 % )                    ;
 ; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                                 ;
 ; Total PLLs                         ; 0 / 4 ( 0 % )                                   ;
 +------------------------------------+-------------------------------------------------+
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 09/20/2022 16:51:19 ;
+; Start date & time ; 09/22/2022 21:42:56 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Giraffe_ADC         ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id     ;
 +-------------------------------------+----------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 158527626708287.166366387809676        ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID               ; 158527626708287.166385417620408        ; --            ; --          ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Verilog Hdl                            ; --            ; --          ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (Verilog)              ; <None>        ; --          ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                   ; --            ; --          ; eda_simulation ;
@@ -100,12 +100,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:11     ; 1.0                     ; 4828 MB             ; 00:00:23                           ;
-; Fitter               ; 00:00:17     ; 1.0                     ; 6346 MB             ; 00:00:32                           ;
+; Analysis & Synthesis ; 00:00:11     ; 1.0                     ; 4828 MB             ; 00:00:22                           ;
+; Fitter               ; 00:00:11     ; 1.0                     ; 6349 MB             ; 00:00:19                           ;
 ; Assembler            ; 00:00:03     ; 1.0                     ; 4680 MB             ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:02     ; 1.1                     ; 4939 MB             ; 00:00:02                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4650 MB             ; 00:00:01                           ;
-; Total                ; 00:00:34     ; --                      ; --                  ; 00:01:01                           ;
+; Timing Analyzer      ; 00:00:02     ; 1.1                     ; 4937 MB             ; 00:00:02                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4653 MB             ; 00:00:01                           ;
+; Total                ; 00:00:28     ; --                      ; --                  ; 00:00:47                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
