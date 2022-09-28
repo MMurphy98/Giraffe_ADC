@@ -37,18 +37,38 @@ module Giraffe_ADC #(
 	output				    adc_ena,
     input                   adc_ack,
     input                   adc_ack_sub,
-    input   [N_bit-1:0]     dout_adc
+    input   [N_bit-1:0]     dout_adc,
 
-
+    // To caparray
+    output                  cap_rstn,
+    output                  cap_comp_ena,
+    output                  cap_wena,
+    output                  cap_rena,
+    output                  cap_sh_vin,
+    output  [4:0]           cap_position,
+    output  [2:0]           cap_coefficent_in,
+    output                  cap_read_ack
 );
+
+    assign cap_rstn = nrst_reg;
+    assign cap_comp_ena = 1'd0;
+    assign cap_wena = 1'd0;
+    assign cap_rena = 1'd0;
+    assign cap_sh_vin = 1'd0;
+    assign cap_position = 5'd0;
+    assign cap_coefficent_in = 3'd0;
+    assign cap_read_ack = 1'd0;
+    
+    
+    
     wire ack_unit = (adc_ack) | (adc_ack_sub);
     reg adc_ena_reg;
       
     
-    assign LED_out = {leds_uart, leds_received, leds_ena};
+    assign LED_out = {leds_reset, leds_uart, leds_received, leds_ena};
   
     assign adc_ena = adc_ena_reg;
-    assign  rstn_adc = nrst;
+    assign  rstn_adc = nrst_reg;
     assign  calib_ena_adc = calib_ena_FPGA;
 
     wire uart_wreq;
@@ -66,13 +86,19 @@ module Giraffe_ADC #(
     assign LED_cnt_send = cnt_received[17:0];
     
 //	assign LED_out = uart_wdata;
-    clk_div #(
-        .NUM_DIV ( NUM_DIV ))
-    u_clk_div (
-        .clk_50M                 ( clk_50M   ),
-        .nrst                    ( nrst      ),
+    // clk_div #(
+    //     .NUM_DIV ( NUM_DIV ))
+    // u_clk_div (
+    //     .clk_50M                 ( clk_50M   ),
+    //     .nrst                    ( nrst      ),
 
-        .clk_out                 ( clk_adc   )
+    //     .clk_out                 ( clk_adc   )
+    // );
+	 
+	my_PLL u_my_PLL (
+        .areset                 (~nrst),
+        .inclk0                 (clk_50M),
+        .c0                     (clk_adc)
     );
 
   	uart_tx #(
@@ -94,6 +120,7 @@ module Giraffe_ADC #(
 
     
     reg [7:0] cnt_ena_period;
+//    reg [31:0] cnt_ena;
     reg [31:0] cnt_ena;
     
     reg leds_ena;
@@ -104,9 +131,12 @@ module Giraffe_ADC #(
     parameter SAMPLE = 4'd1;
     parameter SEND = 4'd2;
     parameter HOLD = 4'd3;
+    parameter RESET = 4'd4;
 
     localparam memory_deepth = NUM_Sampled*4;
     localparam uart_period = FREQ / BAUDRATE;
+    localparam RESET_PERIOD = 1_000;
+
 	(* regstyle = "M9K" *) reg [7:0] my_memory [memory_deepth-1:0];
 //    reg [7:0] my_memory [memory_deepth-1:0];
     always @(posedge clk_50M or negedge nrst) begin
@@ -117,13 +147,19 @@ module Giraffe_ADC #(
         end
     end
 
-    always @(cs, nrst, cnt_ena, cnt_received, uart_cnt_send) begin
+    always @(cs, nrst, cnt_ena, cnt_received, uart_cnt_send, cnt_reset) begin
         if (!nrst) begin
             ns = IDLE;
         end else begin
             case (cs)
                 IDLE :
+                        ns = RESET;
+
+                RESET :
+                    if (cnt_reset == RESET_PERIOD)
                         ns = SAMPLE;
+                    else
+                        ns = RESET;
                 
                 SAMPLE :
                     if (cnt_ena == (NUM_Sampled ) && cnt_received == (memory_deepth))
@@ -216,6 +252,31 @@ module Giraffe_ADC #(
             
     end
 
+    reg nrst_reg;
+    reg [31:0] cnt_reset;
+    reg leds_reset;
+    always @(posedge clk_adc or negedge nrst) begin
+        if (!nrst) begin
+            cnt_reset <= 32'd0;
+            nrst_reg <= 1'd1;
+            leds_reset <= 1'd0;
+        end else if (ns == RESET) begin
+            if (cnt_reset < RESET_PERIOD) begin
+                cnt_reset <= cnt_reset + 32'd1;
+                nrst_reg <= 1'd0;
+                leds_reset <= 1'd1;
+            end else begin
+                cnt_reset <= cnt_reset;
+                nrst_reg <= 1'd1;
+                leds_reset <= 1'd0;
+            end
+        end else begin
+            cnt_reset <= cnt_reset;
+            nrst_reg <= 1'd1; 
+            leds_reset <= 1'd0;           
+        end
+        
+    end
 
 	 always @(posedge clk_adc or negedge nrst) begin
 		if (!nrst ) begin
@@ -223,7 +284,7 @@ module Giraffe_ADC #(
 			adc_ena_reg <= 1'd0;
             cnt_ena <= 32'd0;	
             leds_ena <= 1'd0;	
-		end else begin
+		end else if (ns == SAMPLE) begin
             if (cnt_ena < NUM_Sampled) begin
                 if (cnt_ena_period == 8'd50) begin
                     cnt_ena_period <= 8'd0;
@@ -295,7 +356,10 @@ module Giraffe_ADC #(
                     cnt_received <= cnt_received;
                 end
             end
+        end else begin
+            leds_received <= 1'd0;
         end
+
     end
 
 //     integer k;

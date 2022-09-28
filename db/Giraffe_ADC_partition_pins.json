@@ -16,6 +16,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "LED_out[3]",
+					"strict" : false
+				},
+				{
 					"name" : "LED_cnt_send[0]",
 					"strict" : false
 				},
@@ -96,10 +100,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "clk_adc",
-					"strict" : false
-				},
-				{
 					"name" : "calib_ena_adc",
 					"strict" : false
 				},
@@ -108,7 +108,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "nrst",
+					"name" : "cap_rstn",
 					"strict" : false
 				},
 				{
@@ -116,7 +116,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "clk_50M",
+					"name" : "nrst",
 					"strict" : false
 				},
 				{
@@ -125,6 +125,10 @@
 				},
 				{
 					"name" : "adc_ack_sub",
+					"strict" : false
+				},
+				{
+					"name" : "clk_50M",
 					"strict" : false
 				},
 				{

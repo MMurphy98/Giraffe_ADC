@@ -19,7 +19,7 @@
 ## PROGRAM "Quartus Prime"
 ## VERSION "Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition"
 
-## DATE    "Thu Sep 22 21:42:47 2022"
+## DATE    "Tue Sep 27 11:46:27 2022"
 
 ##
 ## DEVICE  "EP4CE115F29C7"
@@ -45,6 +45,7 @@ create_clock -name {clk_50M} -period 20.000 -waveform { 0.000 10.000 } [get_port
 # Create Generated Clock
 #**************************************************************
 
+create_generated_clock -name {u_my_PLL|altpll_component|auto_generated|pll1|clk[0]} -source [get_pins {u_my_PLL|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50/1 -multiply_by 1 -divide_by 5000 -master_clock {clk_50M} [get_pins {u_my_PLL|altpll_component|auto_generated|pll1|clk[0]}] 
 
 
 #**************************************************************
@@ -63,13 +64,63 @@ create_clock -name {clk_50M} -period 20.000 -waveform { 0.000 10.000 } [get_port
 # Set Input Delay
 #**************************************************************
 
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {adc_ack}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {adc_ack_sub}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {calib_ena_FPGA}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dout_adc[0]}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dout_adc[1]}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dout_adc[2]}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dout_adc[3]}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dout_adc[4]}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dout_adc[5]}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {nrst}]
 
 
 #**************************************************************
 # Set Output Delay
 #**************************************************************
 
-
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[0]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[1]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[2]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[3]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[4]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[5]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[6]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[7]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[8]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[9]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[10]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[11]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[12]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[13]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[14]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[15]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[16]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_cnt_send[17]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_out[0]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_out[1]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_out[2]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {LED_out[3]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {adc_ena}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {calib_ena_adc}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_coefficent_in[0]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_coefficent_in[1]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_coefficent_in[2]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_comp_ena}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_position[0]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_position[1]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_position[2]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_position[3]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_position[4]}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_read_ack}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_rena}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_rstn}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_sh_vin}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_wena}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {tx2M}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {clk_adc}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {rstn_adc}]
 
 #**************************************************************
 # Set Clock Groups
