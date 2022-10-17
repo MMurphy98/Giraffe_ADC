@@ -119,7 +119,7 @@ set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {ca
 set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_sh_vin}]
 set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_wena}]
 set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {tx2M}]
-set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {clk_adc}]
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  1.000 [get_ports {clk_adc}]
 set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {rstn_adc}]
 
 #**************************************************************

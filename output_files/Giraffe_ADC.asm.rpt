@@ -1,5 +1,5 @@
 Assembler report for Giraffe_ADC
-Tue Sep 27 15:00:17 2022
+Thu Oct 13 16:28:37 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -37,7 +37,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Tue Sep 27 15:00:17 2022 ;
+; Assembler Status      ; Successful - Thu Oct 13 16:28:37 2022 ;
 ; Revision Name         ; Giraffe_ADC                           ;
 ; Top-level Entity Name ; Giraffe_ADC                           ;
 ; Family                ; Cyclone IV E                          ;
@@ -66,8 +66,8 @@ refer to the applicable agreement for further details.
 +----------------+------------------------------------------------------------------------------------+
 ; Option         ; Setting                                                                            ;
 +----------------+------------------------------------------------------------------------------------+
-; JTAG usercode  ; 0x005A2915                                                                         ;
-; Checksum       ; 0x005A2915                                                                         ;
+; JTAG usercode  ; 0x0064AA21                                                                         ;
+; Checksum       ; 0x0064AA21                                                                         ;
 +----------------+------------------------------------------------------------------------------------+
 
 
@@ -77,14 +77,14 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Tue Sep 27 15:00:14 2022
+    Info: Processing started: Thu Oct 13 16:28:32 2022
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off Giraffe_ADC -c Giraffe_ADC
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus Prime Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 4680 megabytes
-    Info: Processing ended: Tue Sep 27 15:00:17 2022
-    Info: Elapsed time: 00:00:03
-    Info: Total CPU time (on all processors): 00:00:03
+    Info: Peak virtual memory: 4685 megabytes
+    Info: Processing ended: Thu Oct 13 16:28:37 2022
+    Info: Elapsed time: 00:00:05
+    Info: Total CPU time (on all processors): 00:00:05
 
 

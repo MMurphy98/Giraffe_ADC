@@ -1,16 +1,16 @@
-Fitter Status : Successful - Tue Sep 27 15:00:13 2022
+Fitter Status : Successful - Thu Oct 13 16:28:30 2022
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 Revision Name : Giraffe_ADC
 Top-level Entity Name : Giraffe_ADC
 Family : Cyclone IV E
 Device : EP4CE115F29C7
 Timing Models : Final
-Total logic elements : 408 / 114,480 ( < 1 % )
-    Total combinational functions : 371 / 114,480 ( < 1 % )
-    Dedicated logic registers : 280 / 114,480 ( < 1 % )
-Total registers : 280
+Total logic elements : 546 / 114,480 ( < 1 % )
+    Total combinational functions : 500 / 114,480 ( < 1 % )
+    Dedicated logic registers : 298 / 114,480 ( < 1 % )
+Total registers : 298
 Total pins : 52 / 529 ( 10 % )
 Total virtual pins : 0
-Total memory bits : 32,768 / 3,981,312 ( < 1 % )
+Total memory bits : 1,048,576 / 3,981,312 ( 26 % )
 Embedded Multiplier 9-bit elements : 0 / 532 ( 0 % )
 Total PLLs : 1 / 4 ( 25 % )
