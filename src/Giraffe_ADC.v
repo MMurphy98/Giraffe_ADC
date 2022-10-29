@@ -13,7 +13,7 @@ module Giraffe_ADC #(
     parameter NUM_DIV = 5_00,
 
     // Number of Sampled Points
-    parameter NUM_Sampled = 32_768
+    parameter NUM_Sampled = 4096
 )
 (
     //  FPGA Board
@@ -23,6 +23,7 @@ module Giraffe_ADC #(
 //    input                   system_ena,
     output	[3:0]	        LED_out,
     output [17:0]           LED_cnt_send,
+    output [3:0]            LED_state,
 
     
     // UART TX
@@ -107,8 +108,8 @@ module Giraffe_ADC #(
 
     
     reg [7:0] cnt_ena_period;
-//    reg [7:0] cnt_ena;
-    reg [31:0] cnt_ena;
+    reg [7:0] cnt_ena;
+//    reg [31:0] cnt_ena;
     
     reg leds_ena;
 
@@ -367,10 +368,11 @@ module Giraffe_ADC #(
 
     // output assignments
     assign LED_out = {leds_reset, leds_uart, leds_received, leds_ena};
-    assign LED_cnt_send = cnt_received[17:0];
+    assign LED_cnt_send = cnt_received;
 
     assign  rstn_adc = nrst_reg;
     assign  calib_ena_adc = calib_ena_FPGA;
     assign adc_ena = adc_ena_reg; 
+    assign LED_state = cs;
 
 endmodule

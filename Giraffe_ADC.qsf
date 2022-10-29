@@ -58,24 +58,35 @@ set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+# -------------------------------------------------------
+
 set_location_assignment PIN_Y2 -to clk_50M
 set_location_assignment PIN_R24 -to nrst
-set_location_assignment PIN_AE20 -to adc_ack_sub
-set_location_assignment PIN_AE25 -to dout_adc[5]
-set_location_assignment PIN_AH25 -to dout_adc[4]
-set_location_assignment PIN_AD25 -to dout_adc[3]
-set_location_assignment PIN_AG25 -to dout_adc[2]
-set_location_assignment PIN_AD22 -to dout_adc[1]
-set_location_assignment PIN_AF22 -to dout_adc[0]
-set_location_assignment PIN_G9 -to tx2M
-set_location_assignment PIN_AG23 -to adc_ack
-set_location_assignment PIN_AE23 -to clk_adc
-set_location_assignment PIN_AF20 -to calib_ena_adc
 set_location_assignment PIN_Y23 -to calib_ena_FPGA
-set_location_assignment PIN_AH23 -to rstn_adc
+
+# -------------------------------------------------------
+
+set_location_assignment PIN_AE23 -to clk_adc
+
+set_location_assignment PIN_AG26 -to rstn_adc
+set_location_assignment PIN_AH23 -to adc_ena
+set_location_assignment PIN_AH26 -to calib_ena_adc
+set_location_assignment PIN_AF20 -to adc_ack
+set_location_assignment PIN_AG23 -to adc_ack_sub
+set_location_assignment PIN_AE20 -to dout_adc[5]
+set_location_assignment PIN_AE25 -to dout_adc[4]
+set_location_assignment PIN_AH25 -to dout_adc[3]
+set_location_assignment PIN_AD25 -to dout_adc[2]
+set_location_assignment PIN_AG25 -to dout_adc[1]
+set_location_assignment PIN_AD22 -to dout_adc[0]
+
+set_location_assignment PIN_AE22 -to cap_rstn
+
+# -------------------------------------------------------
+
+set_location_assignment PIN_G9 -to tx2M
 set_global_assignment -name ENABLE_SIGNALTAP OFF
 set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
-set_location_assignment PIN_AH26 -to adc_ena
 set_location_assignment PIN_E24 -to LED_out[3]
 set_location_assignment PIN_E25 -to LED_out[2]
 set_location_assignment PIN_E22 -to LED_out[1]
@@ -103,7 +114,6 @@ set_global_assignment -name VERILOG_FILE src/uart_tx.v
 set_global_assignment -name VERILOG_FILE src/Giraffe_ADC.v
 set_global_assignment -name VERILOG_FILE src/clk_div.v
 set_global_assignment -name QIP_FILE my_PLL.qip
-set_location_assignment PIN_AF15 -to cap_rstn
 set_location_assignment PIN_AE15 -to cap_coefficent_in[2]
 set_location_assignment PIN_AD15 -to cap_coefficent_in[1]
 set_location_assignment PIN_AE16 -to cap_coefficent_in[0]
@@ -278,4 +288,8 @@ set_instance_assignment -name IO_STANDARD "2.5 V" -to calib_ena_adc
 set_instance_assignment -name IO_STANDARD "2.5 V" -to calib_ena_FPGA
 set_instance_assignment -name IO_STANDARD "2.5 V" -to rstn_adc
 set_instance_assignment -name IO_STANDARD "2.5 V" -to adc_ena
+set_location_assignment PIN_G21 -to LED_state[3]
+set_location_assignment PIN_G22 -to LED_state[2]
+set_location_assignment PIN_G20 -to LED_state[1]
+set_location_assignment PIN_H21 -to LED_state[0]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
