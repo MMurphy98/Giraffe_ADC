@@ -20,11 +20,14 @@
     
     - 添加了对输入输出IO的时序约束，由`Giraffe_ADC.out.sdc`文件控制；
 
+- `dev`：在`New`的基础上增加了关于 Inter-stage Amplifier等待时间的控制逻辑，根据**9个Switches**来输出控制电压，控制3次放大的等待时间；
+
+
 
 ## TODO
 
-- [ ] 添加代码注释；
-- [ ] 校验`input_delay` 和 `output_delay`的逻辑功能是否正确；
+- [X] 添加代码注释；
+- [x] 校验`input_delay` 和 `output_delay`的逻辑功能是否正确；
 
 
 

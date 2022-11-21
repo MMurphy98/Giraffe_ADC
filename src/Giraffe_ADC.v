@@ -13,13 +13,15 @@ module Giraffe_ADC #(
     parameter NUM_DIV = 5_00,
 
     // Number of Sampled Points
-    parameter NUM_Sampled = 4096
+    parameter NUM_Sampled = 100_000
 )
 (
     //  FPGA Board
     input                   clk_50M,
     input                   nrst,
     input                   calib_ena_FPGA,
+    input  [8:0]            sw_NOWA,
+
 //    input                   system_ena,
     output	[3:0]	        LED_out,
     output [17:0]           LED_cnt_send,
@@ -36,30 +38,31 @@ module Giraffe_ADC #(
     output                  clk_adc,
     output                  calib_ena_adc,
 	output				    adc_ena,
+    output  [8:0]           NOWA_adc,
     input                   adc_ack,
     input                   adc_ack_sub,
     input   [N_bit-1:0]     dout_adc,
 
     // To caparray
-    output                  cap_rstn,
-    output                  cap_comp_ena,
-    output                  cap_wena,
-    output                  cap_rena,
-    output                  cap_sh_vin,
-    output  [4:0]           cap_position,
-    output  [2:0]           cap_coefficent_in,
-    output                  cap_read_ack
+    output                  cap_rstn
+    // output                  cap_comp_ena,
+    // output                  cap_wena,
+    // output                  cap_rena,
+    // output                  cap_sh_vin,
+    // output  [4:0]           cap_position,
+    // output  [2:0]           cap_coefficent_in,
+    // output                  cap_read_ack
 );
 
     // assign the digital control IO of Cap Array
     assign cap_rstn = nrst_reg;
-    assign cap_comp_ena = 1'd0;
-    assign cap_wena = 1'd0;
-    assign cap_rena = 1'd0;
-    assign cap_sh_vin = 1'd0;
-    assign cap_position = 5'd0;
-    assign cap_coefficent_in = 3'd0;
-    assign cap_read_ack = 1'd0;
+    // assign cap_comp_ena = 1'd0;
+    // assign cap_wena = 1'd0;
+    // assign cap_rena = 1'd0;
+    // assign cap_sh_vin = 1'd0;
+    // assign cap_position = 5'd0;
+    // assign cap_coefficent_in = 3'd0;
+    // assign cap_read_ack = 1'd0;
 
 
 
@@ -108,8 +111,8 @@ module Giraffe_ADC #(
 
     
     reg [7:0] cnt_ena_period;
-    reg [7:0] cnt_ena;
-//    reg [31:0] cnt_ena;
+//    reg [7:0] cnt_ena;
+    reg [31:0] cnt_ena;
     
     reg leds_ena;
 
@@ -366,6 +369,18 @@ module Giraffe_ADC #(
 
     end
 
+    // Number of wait control
+    reg [8:0]   NOWA_adc_reg;
+    always @(posedge clk_50M or negedge nrst) begin
+        if (!nrst) begin
+            NOWA_adc_reg <= 9'd0;
+        end else begin
+            NOWA_adc_reg <= sw_NOWA;
+        end
+    end
+
+
+
     // output assignments
     assign LED_out = {leds_reset, leds_uart, leds_received, leds_ena};
     assign LED_cnt_send = cnt_received;
@@ -374,5 +389,7 @@ module Giraffe_ADC #(
     assign  calib_ena_adc = calib_ena_FPGA;
     assign adc_ena = adc_ena_reg; 
     assign LED_state = cs;
+
+    assign NOWA_adc = NOWA_adc_reg;
 
 endmodule

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Giraffe_ADC
-Sun Oct 23 16:18:14 2022
+Sat Nov 19 08:54:43 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -13,16 +13,16 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. Analysis & Synthesis IP Cores Summary
-  9. State Machine - |Giraffe_ADC|cs
- 10. State Machine - |Giraffe_ADC|uart_tx:u_uart_tx|cs
- 11. Registers Removed During Synthesis
- 12. Removed Registers Triggering Further Register Optimizations
+  8. Analysis & Synthesis RAM Summary
+  9. Analysis & Synthesis IP Cores Summary
+ 10. State Machine - |Giraffe_ADC|cs
+ 11. State Machine - |Giraffe_ADC|uart_tx:u_uart_tx|cs
+ 12. Registers Removed During Synthesis
  13. General Register Statistics
  14. Inverted Register Statistics
  15. Registers Added for RAM Pass-Through Logic
  16. Multiplexer Restructuring Statistics (Restructuring Performed)
- 17. Source assignments for altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated
+ 17. Source assignments for altsyncram:my_memory_rtl_0|altsyncram_3oi1:auto_generated
  18. Parameter Settings for User Entity Instance: Top-level Entity: |Giraffe_ADC
  19. Parameter Settings for User Entity Instance: my_PLL:u_my_PLL|altpll:altpll_component
  20. Parameter Settings for User Entity Instance: uart_tx:u_uart_tx
@@ -58,18 +58,18 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Oct 23 16:18:14 2022           ;
+; Analysis & Synthesis Status        ; Successful - Sat Nov 19 08:54:43 2022           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; Giraffe_ADC                                     ;
 ; Top-level Entity Name              ; Giraffe_ADC                                     ;
 ; Family                             ; Cyclone IV E                                    ;
-; Total logic elements               ; 105                                             ;
-;     Total combinational functions  ; 103                                             ;
-;     Dedicated logic registers      ; 80                                              ;
-; Total registers                    ; 80                                              ;
-; Total pins                         ; 56                                              ;
+; Total logic elements               ; 840                                             ;
+;     Total combinational functions  ; 769                                             ;
+;     Dedicated logic registers      ; 315                                             ;
+; Total registers                    ; 315                                             ;
+; Total pins                         ; 61                                              ;
 ; Total virtual pins                 ; 0                                               ;
-; Total memory bits                  ; 0                                               ;
+; Total memory bits                  ; 3,200,000                                       ;
 ; Embedded Multiplier 9-bit elements ; 0                                               ;
 ; Total PLLs                         ; 1                                               ;
 +------------------------------------+-------------------------------------------------+
@@ -175,7 +175,14 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-12        ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processor 3            ;   0.0%      ;
+;     Processor 4            ;   0.0%      ;
+;     Processor 5            ;   0.0%      ;
+;     Processor 6            ;   0.0%      ;
+;     Processor 7            ;   0.0%      ;
+;     Processor 8            ;   0.0%      ;
+;     Processors 9-12        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -201,58 +208,73 @@ refer to the applicable agreement for further details.
 ; altrom.inc                       ; yes             ; Megafunction                 ; c:/intelfpga/18.1/quartus/libraries/megafunctions/altrom.inc            ;         ;
 ; altram.inc                       ; yes             ; Megafunction                 ; c:/intelfpga/18.1/quartus/libraries/megafunctions/altram.inc            ;         ;
 ; altdpram.inc                     ; yes             ; Megafunction                 ; c:/intelfpga/18.1/quartus/libraries/megafunctions/altdpram.inc          ;         ;
-; db/altsyncram_bbi1.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf     ;         ;
-; db/decode_jsa.tdf                ; yes             ; Auto-Generated Megafunction  ; C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/decode_jsa.tdf          ;         ;
-; db/mux_3nb.tdf                   ; yes             ; Auto-Generated Megafunction  ; C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/mux_3nb.tdf             ;         ;
+; db/altsyncram_3oi1.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_3oi1.tdf     ;         ;
+; db/decode_jua.tdf                ; yes             ; Auto-Generated Megafunction  ; C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/decode_jua.tdf          ;         ;
+; db/mux_3pb.tdf                   ; yes             ; Auto-Generated Megafunction  ; C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/mux_3pb.tdf             ;         ;
 +----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------+---------+
 
 
-+----------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary              ;
-+---------------------------------------------+------------+
-; Resource                                    ; Usage      ;
-+---------------------------------------------+------------+
-; Estimated Total logic elements              ; 105        ;
-;                                             ;            ;
-; Total combinational functions               ; 103        ;
-; Logic element usage by number of LUT inputs ;            ;
-;     -- 4 input functions                    ; 22         ;
-;     -- 3 input functions                    ; 10         ;
-;     -- <=2 input functions                  ; 71         ;
-;                                             ;            ;
-; Logic elements by mode                      ;            ;
-;     -- normal mode                          ; 36         ;
-;     -- arithmetic mode                      ; 67         ;
-;                                             ;            ;
-; Total registers                             ; 80         ;
-;     -- Dedicated logic registers            ; 80         ;
-;     -- I/O registers                        ; 0          ;
-;                                             ;            ;
-; I/O pins                                    ; 56         ;
-;                                             ;            ;
-; Embedded Multiplier 9-bit elements          ; 0          ;
-;                                             ;            ;
-; Total PLLs                                  ; 1          ;
-;     -- PLLs                                 ; 1          ;
-;                                             ;            ;
-; Maximum fan-out node                        ; nrst~input ;
-; Maximum fan-out                             ; 83         ;
-; Total fan-out                               ; 653        ;
-; Average fan-out                             ; 2.21       ;
-+---------------------------------------------+------------+
++-------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                 ;
++---------------------------------------------+---------------+
+; Resource                                    ; Usage         ;
++---------------------------------------------+---------------+
+; Estimated Total logic elements              ; 840           ;
+;                                             ;               ;
+; Total combinational functions               ; 769           ;
+; Logic element usage by number of LUT inputs ;               ;
+;     -- 4 input functions                    ; 500           ;
+;     -- 3 input functions                    ; 46            ;
+;     -- <=2 input functions                  ; 223           ;
+;                                             ;               ;
+; Logic elements by mode                      ;               ;
+;     -- normal mode                          ; 580           ;
+;     -- arithmetic mode                      ; 189           ;
+;                                             ;               ;
+; Total registers                             ; 315           ;
+;     -- Dedicated logic registers            ; 315           ;
+;     -- I/O registers                        ; 0             ;
+;                                             ;               ;
+; I/O pins                                    ; 61            ;
+; Total memory bits                           ; 3200000       ;
+;                                             ;               ;
+; Embedded Multiplier 9-bit elements          ; 0             ;
+;                                             ;               ;
+; Total PLLs                                  ; 1             ;
+;     -- PLLs                                 ; 1             ;
+;                                             ;               ;
+; Maximum fan-out node                        ; clk_50M~input ;
+; Maximum fan-out                             ; 632           ;
+; Total fan-out                               ; 15650         ;
+; Average fan-out                             ; 9.79          ;
++---------------------------------------------+---------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                   ;
-+-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+---------------+--------------+
-; Compilation Hierarchy Node              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                               ; Entity Name   ; Library Name ;
-+-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+---------------+--------------+
-; |Giraffe_ADC                            ; 103 (103)           ; 80 (80)                   ; 0           ; 0            ; 0       ; 0         ; 56   ; 0            ; |Giraffe_ADC                                                                      ; Giraffe_ADC   ; work         ;
-;    |my_PLL:u_my_PLL|                    ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|my_PLL:u_my_PLL                                                      ; my_PLL        ; work         ;
-;       |altpll:altpll_component|         ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|my_PLL:u_my_PLL|altpll:altpll_component                              ; altpll        ; work         ;
-;          |my_PLL_altpll:auto_generated| ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|my_PLL:u_my_PLL|altpll:altpll_component|my_PLL_altpll:auto_generated ; my_PLL_altpll ; work         ;
-+-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+---------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                             ;
++-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------+-----------------+--------------+
+; Compilation Hierarchy Node              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                       ; Entity Name     ; Library Name ;
++-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------+-----------------+--------------+
+; |Giraffe_ADC                            ; 769 (302)           ; 315 (254)                 ; 3200000     ; 0            ; 0       ; 0         ; 61   ; 0            ; |Giraffe_ADC                                                                              ; Giraffe_ADC     ; work         ;
+;    |altsyncram:my_memory_rtl_0|         ; 387 (0)             ; 12 (0)                    ; 3200000     ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|altsyncram:my_memory_rtl_0                                                   ; altsyncram      ; work         ;
+;       |altsyncram_3oi1:auto_generated|  ; 387 (6)             ; 12 (12)                   ; 3200000     ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|altsyncram:my_memory_rtl_0|altsyncram_3oi1:auto_generated                    ; altsyncram_3oi1 ; work         ;
+;          |decode_jua:decode2|           ; 59 (59)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|altsyncram:my_memory_rtl_0|altsyncram_3oi1:auto_generated|decode_jua:decode2 ; decode_jua      ; work         ;
+;          |mux_3pb:mux3|                 ; 322 (322)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|altsyncram:my_memory_rtl_0|altsyncram_3oi1:auto_generated|mux_3pb:mux3       ; mux_3pb         ; work         ;
+;    |my_PLL:u_my_PLL|                    ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|my_PLL:u_my_PLL                                                              ; my_PLL          ; work         ;
+;       |altpll:altpll_component|         ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|my_PLL:u_my_PLL|altpll:altpll_component                                      ; altpll          ; work         ;
+;          |my_PLL_altpll:auto_generated| ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|my_PLL:u_my_PLL|altpll:altpll_component|my_PLL_altpll:auto_generated         ; my_PLL_altpll   ; work         ;
+;    |uart_tx:u_uart_tx|                  ; 80 (80)             ; 49 (49)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Giraffe_ADC|uart_tx:u_uart_tx                                                            ; uart_tx         ; work         ;
++-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------+-----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                            ;
++----------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+---------+------+
+; Name                                                                 ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size    ; MIF  ;
++----------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+---------+------+
+; altsyncram:my_memory_rtl_0|altsyncram_3oi1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 400000       ; 8            ; 400000       ; 8            ; 3200000 ; None ;
++----------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+---------+------+
 
 
 +----------------------------------------------------------------------------------------------------------------+
@@ -291,104 +313,18 @@ Encoding Type:  One-Hot
 +----------+---------+---------+----------+---------+
 
 
-+-----------------------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                                              ;
-+-------------------------------------------------------------------+---------------------------------------------+
-; Register name                                                     ; Reason for Removal                          ;
-+-------------------------------------------------------------------+---------------------------------------------+
-; cs~4                                                              ; Lost fanout                                 ;
-; cs~5                                                              ; Lost fanout                                 ;
-; cs~7                                                              ; Lost fanout                                 ;
-; uart_tx:u_uart_tx|cs~4                                            ; Lost fanout                                 ;
-; uart_tx:u_uart_tx|cs~5                                            ; Lost fanout                                 ;
-; cs.SEND                                                           ; Stuck at GND due to stuck port data_in      ;
-; my_memory~0                                                       ; Stuck at GND due to stuck port clock_enable ;
-; my_memory_rtl_0_bypass[2,4,6,8,10,12,14,16,18,20,22,24,26,28]     ; Stuck at GND due to stuck port clock_enable ;
-; uart_cnt_send[1..31]                                              ; Stuck at GND due to stuck port clock_enable ;
-; uart_cnt_clk[0..31]                                               ; Stuck at GND due to stuck port clock_enable ;
-; uart_wdata_reg[7]                                                 ; Stuck at GND due to stuck port clock_enable ;
-; my_memory~8                                                       ; Lost fanout                                 ;
-; my_memory_rtl_0_bypass[36]                                        ; Lost fanout                                 ;
-; uart_wdata_reg[6]                                                 ; Stuck at GND due to stuck port clock_enable ;
-; my_memory~7                                                       ; Lost fanout                                 ;
-; my_memory_rtl_0_bypass[35]                                        ; Lost fanout                                 ;
-; uart_wdata_reg[5]                                                 ; Stuck at GND due to stuck port clock_enable ;
-; my_memory~6                                                       ; Lost fanout                                 ;
-; my_memory_rtl_0_bypass[34]                                        ; Lost fanout                                 ;
-; uart_wdata_reg[4]                                                 ; Stuck at GND due to stuck port clock_enable ;
-; my_memory~5                                                       ; Lost fanout                                 ;
-; my_memory_rtl_0_bypass[33]                                        ; Lost fanout                                 ;
-; uart_wdata_reg[3]                                                 ; Stuck at GND due to stuck port clock_enable ;
-; my_memory~4                                                       ; Lost fanout                                 ;
-; my_memory_rtl_0_bypass[32]                                        ; Lost fanout                                 ;
-; uart_wdata_reg[2]                                                 ; Stuck at GND due to stuck port clock_enable ;
-; my_memory~3                                                       ; Lost fanout                                 ;
-; my_memory_rtl_0_bypass[31]                                        ; Lost fanout                                 ;
-; uart_wdata_reg[1]                                                 ; Stuck at GND due to stuck port clock_enable ;
-; my_memory~2                                                       ; Lost fanout                                 ;
-; my_memory_rtl_0_bypass[30]                                        ; Lost fanout                                 ;
-; uart_wdata_reg[0]                                                 ; Stuck at GND due to stuck port clock_enable ;
-; my_memory~1                                                       ; Lost fanout                                 ;
-; my_memory_rtl_0_bypass[0,1,3,5,7,9,11,13,15,17,19,21,23,25,27,29] ; Lost fanout                                 ;
-; cs.HOLD                                                           ; Stuck at GND due to stuck port data_in      ;
-; uart_cnt_send[0]                                                  ; Stuck at GND due to stuck port data_in      ;
-; uart_wreq_reg                                                     ; Stuck at GND due to stuck port data_in      ;
-; leds_uart                                                         ; Stuck at GND due to stuck port clock_enable ;
-; uart_tx:u_uart_tx|cs.START                                        ; Stuck at GND due to stuck port data_in      ;
-; uart_tx:u_uart_tx|cs.DATA                                         ; Stuck at GND due to stuck port data_in      ;
-; uart_tx:u_uart_tx|wdata_reg[0..7]                                 ; Stuck at GND due to stuck port data_in      ;
-; uart_tx:u_uart_tx|cs.STOP                                         ; Stuck at GND due to stuck port data_in      ;
-; uart_tx:u_uart_tx|cs.IDLE                                         ; Stuck at GND due to stuck port data_in      ;
-; uart_tx:u_uart_tx|cnt_bit[0..3]                                   ; Lost fanout                                 ;
-; uart_tx:u_uart_tx|cnt_clk[0..31]                                  ; Lost fanout                                 ;
-; uart_tx:u_uart_tx|tx_reg                                          ; Stuck at VCC due to stuck port data_in      ;
-; Total Number of Removed Registers = 176                           ;                                             ;
-+-------------------------------------------------------------------+---------------------------------------------+
-
-
-+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                                           ;
-+----------------------------+--------------------------------+-----------------------------------------------------------------------------------------+
-; Register name              ; Reason for Removal             ; Registers Removed due to This Register                                                  ;
-+----------------------------+--------------------------------+-----------------------------------------------------------------------------------------+
-; my_memory~0                ; Stuck at GND                   ; uart_wdata_reg[7], my_memory~8, my_memory_rtl_0_bypass[36], uart_wdata_reg[6],          ;
-;                            ; due to stuck port clock_enable ; my_memory~7, my_memory_rtl_0_bypass[35], uart_wdata_reg[5], my_memory~6,                ;
-;                            ;                                ; my_memory_rtl_0_bypass[34], uart_wdata_reg[4], my_memory~5, my_memory_rtl_0_bypass[33], ;
-;                            ;                                ; uart_wdata_reg[3], my_memory~4, my_memory_rtl_0_bypass[32], uart_wdata_reg[2],          ;
-;                            ;                                ; my_memory~3, my_memory_rtl_0_bypass[31], uart_wdata_reg[1], my_memory~2,                ;
-;                            ;                                ; my_memory_rtl_0_bypass[30], uart_wdata_reg[0], my_memory~1, my_memory_rtl_0_bypass[29], ;
-;                            ;                                ; my_memory_rtl_0_bypass[0], my_memory_rtl_0_bypass[1], my_memory_rtl_0_bypass[3],        ;
-;                            ;                                ; my_memory_rtl_0_bypass[5], uart_tx:u_uart_tx|wdata_reg[7],                              ;
-;                            ;                                ; uart_tx:u_uart_tx|wdata_reg[6], uart_tx:u_uart_tx|wdata_reg[5],                         ;
-;                            ;                                ; uart_tx:u_uart_tx|wdata_reg[4], uart_tx:u_uart_tx|wdata_reg[3],                         ;
-;                            ;                                ; uart_tx:u_uart_tx|wdata_reg[2], uart_tx:u_uart_tx|wdata_reg[1],                         ;
-;                            ;                                ; uart_tx:u_uart_tx|wdata_reg[0], uart_tx:u_uart_tx|cnt_clk[31],                          ;
-;                            ;                                ; uart_tx:u_uart_tx|cnt_clk[30]                                                           ;
-; cs.SEND                    ; Stuck at GND                   ; uart_wreq_reg, leds_uart, uart_tx:u_uart_tx|cs.START, uart_tx:u_uart_tx|cs.IDLE,        ;
-;                            ; due to stuck port data_in      ; uart_tx:u_uart_tx|cnt_clk[29], uart_tx:u_uart_tx|tx_reg                                 ;
-; uart_cnt_clk[31]           ; Stuck at GND                   ; uart_cnt_clk[12], uart_cnt_clk[10], uart_cnt_clk[6], uart_cnt_clk[4], uart_cnt_clk[3],  ;
-;                            ; due to stuck port clock_enable ; uart_cnt_clk[0]                                                                         ;
-; uart_tx:u_uart_tx|cs~4     ; Lost Fanouts                   ; uart_tx:u_uart_tx|cnt_bit[3], uart_tx:u_uart_tx|cnt_bit[2],                             ;
-;                            ;                                ; uart_tx:u_uart_tx|cnt_bit[1], uart_tx:u_uart_tx|cnt_bit[0]                              ;
-; my_memory_rtl_0_bypass[2]  ; Stuck at GND                   ; my_memory_rtl_0_bypass[7], my_memory_rtl_0_bypass[9], my_memory_rtl_0_bypass[11]        ;
-;                            ; due to stuck port clock_enable ;                                                                                         ;
-; my_memory_rtl_0_bypass[14] ; Stuck at GND                   ; my_memory_rtl_0_bypass[13]                                                              ;
-;                            ; due to stuck port clock_enable ;                                                                                         ;
-; my_memory_rtl_0_bypass[16] ; Stuck at GND                   ; my_memory_rtl_0_bypass[15]                                                              ;
-;                            ; due to stuck port clock_enable ;                                                                                         ;
-; my_memory_rtl_0_bypass[18] ; Stuck at GND                   ; my_memory_rtl_0_bypass[17]                                                              ;
-;                            ; due to stuck port clock_enable ;                                                                                         ;
-; my_memory_rtl_0_bypass[20] ; Stuck at GND                   ; my_memory_rtl_0_bypass[19]                                                              ;
-;                            ; due to stuck port clock_enable ;                                                                                         ;
-; my_memory_rtl_0_bypass[22] ; Stuck at GND                   ; my_memory_rtl_0_bypass[21]                                                              ;
-;                            ; due to stuck port clock_enable ;                                                                                         ;
-; my_memory_rtl_0_bypass[24] ; Stuck at GND                   ; my_memory_rtl_0_bypass[23]                                                              ;
-;                            ; due to stuck port clock_enable ;                                                                                         ;
-; my_memory_rtl_0_bypass[26] ; Stuck at GND                   ; my_memory_rtl_0_bypass[25]                                                              ;
-;                            ; due to stuck port clock_enable ;                                                                                         ;
-; my_memory_rtl_0_bypass[28] ; Stuck at GND                   ; my_memory_rtl_0_bypass[27]                                                              ;
-;                            ; due to stuck port clock_enable ;                                                                                         ;
-+----------------------------+--------------------------------+-----------------------------------------------------------------------------------------+
++------------------------------------------------------------+
+; Registers Removed During Synthesis                         ;
++---------------------------------------+--------------------+
+; Register name                         ; Reason for Removal ;
++---------------------------------------+--------------------+
+; cs~4                                  ; Lost fanout        ;
+; cs~5                                  ; Lost fanout        ;
+; cs~7                                  ; Lost fanout        ;
+; uart_tx:u_uart_tx|cs~4                ; Lost fanout        ;
+; uart_tx:u_uart_tx|cs~5                ; Lost fanout        ;
+; Total Number of Removed Registers = 5 ;                    ;
++---------------------------------------+--------------------+
 
 
 +------------------------------------------------------+
@@ -396,12 +332,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 80    ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 80    ;
+; Total registers                              ; 315   ;
+; Number of registers using Synchronous Clear  ; 32    ;
+; Number of registers using Synchronous Load   ; 40    ;
+; Number of registers using Asynchronous Clear ; 259   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 71    ;
+; Number of registers using Clock Enable       ; 215   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -411,8 +347,9 @@ Encoding Type:  One-Hot
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
+; uart_tx:u_uart_tx|tx_reg               ; 1       ;
 ; nrst_reg                               ; 2       ;
-; Total number of inverted registers = 1 ;         ;
+; Total number of inverted registers = 2 ;         ;
 +----------------------------------------+---------+
 
 
@@ -458,6 +395,16 @@ Encoding Type:  One-Hot
 ; my_memory_rtl_0_bypass[34] ; my_memory_rtl_0 ;
 ; my_memory_rtl_0_bypass[35] ; my_memory_rtl_0 ;
 ; my_memory_rtl_0_bypass[36] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[37] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[38] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[39] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[40] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[41] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[42] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[43] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[44] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[45] ; my_memory_rtl_0 ;
+; my_memory_rtl_0_bypass[46] ; my_memory_rtl_0 ;
 +----------------------------+-----------------+
 
 
@@ -471,7 +418,7 @@ Encoding Type:  One-Hot
 
 
 +----------------------------------------------------------------------------------+
-; Source assignments for altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated ;
+; Source assignments for altsyncram:my_memory_rtl_0|altsyncram_3oi1:auto_generated ;
 +---------------------------------+--------------------+------+--------------------+
 ; Assignment                      ; Value              ; From ; To                 ;
 +---------------------------------+--------------------+------+--------------------+
@@ -491,7 +438,7 @@ Encoding Type:  One-Hot
 ; N_stop         ; 1        ; Signed Integer                                  ;
 ; N_bit          ; 6        ; Signed Integer                                  ;
 ; NUM_DIV        ; 500      ; Signed Integer                                  ;
-; NUM_Sampled    ; 4096     ; Signed Integer                                  ;
+; NUM_Sampled    ; 100000   ; Signed Integer                                  ;
 +----------------+----------+-------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
@@ -548,7 +495,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; CLK3_DIVIDE_BY                ; 1                        ; Untyped                   ;
 ; CLK2_DIVIDE_BY                ; 1                        ; Untyped                   ;
 ; CLK1_DIVIDE_BY                ; 1                        ; Untyped                   ;
-; CLK0_DIVIDE_BY                ; 10                       ; Signed Integer            ;
+; CLK0_DIVIDE_BY                ; 1                        ; Signed Integer            ;
 ; CLK9_PHASE_SHIFT              ; 0                        ; Untyped                   ;
 ; CLK8_PHASE_SHIFT              ; 0                        ; Untyped                   ;
 ; CLK7_PHASE_SHIFT              ; 0                        ; Untyped                   ;
@@ -897,8 +844,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; WIDTH_BYTEENA                      ; 1                    ; Untyped         ;
 ; OPERATION_MODE                     ; DUAL_PORT            ; Untyped         ;
 ; WIDTH_A                            ; 8                    ; Untyped         ;
-; WIDTHAD_A                          ; 14                   ; Untyped         ;
-; NUMWORDS_A                         ; 16384                ; Untyped         ;
+; WIDTHAD_A                          ; 19                   ; Untyped         ;
+; NUMWORDS_A                         ; 400000               ; Untyped         ;
 ; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped         ;
 ; ADDRESS_ACLR_A                     ; NONE                 ; Untyped         ;
 ; OUTDATA_ACLR_A                     ; NONE                 ; Untyped         ;
@@ -906,8 +853,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; INDATA_ACLR_A                      ; NONE                 ; Untyped         ;
 ; BYTEENA_ACLR_A                     ; NONE                 ; Untyped         ;
 ; WIDTH_B                            ; 8                    ; Untyped         ;
-; WIDTHAD_B                          ; 14                   ; Untyped         ;
-; NUMWORDS_B                         ; 16384                ; Untyped         ;
+; WIDTHAD_B                          ; 19                   ; Untyped         ;
+; NUMWORDS_B                         ; 400000               ; Untyped         ;
 ; INDATA_REG_B                       ; CLOCK1               ; Untyped         ;
 ; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped         ;
 ; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped         ;
@@ -940,7 +887,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped         ;
 ; WIDTH_ECCSTATUS                    ; 3                    ; Untyped         ;
 ; DEVICE_FAMILY                      ; Cyclone IV E         ; Untyped         ;
-; CBXI_PARAMETER                     ; altsyncram_bbi1      ; Untyped         ;
+; CBXI_PARAMETER                     ; altsyncram_3oi1      ; Untyped         ;
 +------------------------------------+----------------------+-----------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
@@ -971,10 +918,10 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Entity Instance                           ; altsyncram:my_memory_rtl_0 ;
 ;     -- OPERATION_MODE                     ; DUAL_PORT                  ;
 ;     -- WIDTH_A                            ; 8                          ;
-;     -- NUMWORDS_A                         ; 16384                      ;
+;     -- NUMWORDS_A                         ; 400000                     ;
 ;     -- OUTDATA_REG_A                      ; UNREGISTERED               ;
 ;     -- WIDTH_B                            ; 8                          ;
-;     -- NUMWORDS_B                         ; 16384                      ;
+;     -- NUMWORDS_B                         ; 400000                     ;
 ;     -- ADDRESS_REG_B                      ; CLOCK0                     ;
 ;     -- OUTDATA_REG_B                      ; UNREGISTERED               ;
 ;     -- RAM_BLOCK_TYPE                     ; AUTO                       ;
@@ -996,24 +943,29 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 56                          ;
-; cycloneiii_ff         ; 80                          ;
-;     CLR               ; 9                           ;
-;     ENA CLR           ; 71                          ;
-; cycloneiii_lcell_comb ; 106                         ;
-;     arith             ; 67                          ;
-;         2 data inputs ; 65                          ;
-;         3 data inputs ; 2                           ;
-;     normal            ; 39                          ;
-;         0 data inputs ; 2                           ;
-;         1 data inputs ; 4                           ;
-;         2 data inputs ; 3                           ;
-;         3 data inputs ; 8                           ;
-;         4 data inputs ; 22                          ;
+; boundary_port         ; 61                          ;
+; cycloneiii_ff         ; 315                         ;
+;     CLR               ; 34                          ;
+;     CLR SCLR SLD      ; 32                          ;
+;     ENA               ; 22                          ;
+;     ENA CLR           ; 185                         ;
+;     ENA CLR SLD       ; 8                           ;
+;     plain             ; 34                          ;
+; cycloneiii_lcell_comb ; 771                         ;
+;     arith             ; 189                         ;
+;         2 data inputs ; 185                         ;
+;         3 data inputs ; 4                           ;
+;     normal            ; 582                         ;
+;         0 data inputs ; 1                           ;
+;         1 data inputs ; 12                          ;
+;         2 data inputs ; 27                          ;
+;         3 data inputs ; 42                          ;
+;         4 data inputs ; 500                         ;
 ; cycloneiii_pll        ; 1                           ;
+; cycloneiii_ram_block  ; 392                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 6.00                        ;
-; Average LUT depth     ; 3.48                        ;
+; Max LUT depth         ; 8.00                        ;
+; Average LUT depth     ; 5.13                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1022,7 +974,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:02     ;
 +----------------+--------------+
 
 
@@ -1032,40 +984,36 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Sun Oct 23 16:18:02 2022
+    Info: Processing started: Sat Nov 19 08:54:27 2022
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Giraffe_ADC -c Giraffe_ADC
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file src/uart_tx.v
     Info (12023): Found entity 1: uart_tx File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/uart_tx.v Line: 3
-Warning (10335): Unrecognized synthesis attribute "regstyle" at src/Giraffe_ADC.v(132) File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 132
+Warning (10335): Unrecognized synthesis attribute "regstyle" at src/Giraffe_ADC.v(135) File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 135
 Info (12021): Found 1 design units, including 1 entities, in source file src/giraffe_adc.v
     Info (12023): Found entity 1: Giraffe_ADC File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file src/clk_div.v
     Info (12023): Found entity 1: clk_div File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/clk_div.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file my_pll.v
     Info (12023): Found entity 1: my_PLL File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/my_PLL.v Line: 39
-Warning (10236): Verilog HDL Implicit Net warning at Giraffe_ADC.v(104): created implicit net for "uart_rdy" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 104
+Warning (10236): Verilog HDL Implicit Net warning at Giraffe_ADC.v(107): created implicit net for "uart_rdy" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 107
 Warning (10222): Verilog HDL Parameter Declaration warning at uart_tx.v(39): Parameter Declaration in module "uart_tx" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/uart_tx.v Line: 39
-Warning (10222): Verilog HDL Parameter Declaration warning at Giraffe_ADC.v(119): Parameter Declaration in module "Giraffe_ADC" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 119
-Warning (10222): Verilog HDL Parameter Declaration warning at Giraffe_ADC.v(120): Parameter Declaration in module "Giraffe_ADC" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 120
-Warning (10222): Verilog HDL Parameter Declaration warning at Giraffe_ADC.v(121): Parameter Declaration in module "Giraffe_ADC" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 121
 Warning (10222): Verilog HDL Parameter Declaration warning at Giraffe_ADC.v(122): Parameter Declaration in module "Giraffe_ADC" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 122
 Warning (10222): Verilog HDL Parameter Declaration warning at Giraffe_ADC.v(123): Parameter Declaration in module "Giraffe_ADC" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 123
+Warning (10222): Verilog HDL Parameter Declaration warning at Giraffe_ADC.v(124): Parameter Declaration in module "Giraffe_ADC" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 124
+Warning (10222): Verilog HDL Parameter Declaration warning at Giraffe_ADC.v(125): Parameter Declaration in module "Giraffe_ADC" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 125
+Warning (10222): Verilog HDL Parameter Declaration warning at Giraffe_ADC.v(126): Parameter Declaration in module "Giraffe_ADC" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 126
 Info (12127): Elaborating entity "Giraffe_ADC" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at Giraffe_ADC.v(312): object "ack_unit_delay2" assigned a value but never read File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 312
-Warning (10036): Verilog HDL or VHDL warning at Giraffe_ADC.v(312): object "adc_ack_delay2" assigned a value but never read File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 312
-Warning (10235): Verilog HDL Always Construct warning at Giraffe_ADC.v(178): variable "ns" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 178
-Warning (10230): Verilog HDL assignment warning at Giraffe_ADC.v(287): truncated value with size 32 to match size of target (8) File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 287
-Warning (10230): Verilog HDL assignment warning at Giraffe_ADC.v(294): truncated value with size 32 to match size of target (8) File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 294
-Warning (10240): Verilog HDL Always Construct warning at Giraffe_ADC.v(283): inferring latch(es) for variable "leds_ena", which holds its previous value in one or more paths through the always construct File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 283
-Warning (10230): Verilog HDL assignment warning at Giraffe_ADC.v(371): truncated value with size 32 to match size of target (18) File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 371
-Info (10041): Inferred latch for "leds_ena" at Giraffe_ADC.v(283) File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 283
-Info (12128): Elaborating entity "my_PLL" for hierarchy "my_PLL:u_my_PLL" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 90
+Warning (10036): Verilog HDL or VHDL warning at Giraffe_ADC.v(315): object "ack_unit_delay2" assigned a value but never read File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 315
+Warning (10036): Verilog HDL or VHDL warning at Giraffe_ADC.v(315): object "adc_ack_delay2" assigned a value but never read File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 315
+Warning (10235): Verilog HDL Always Construct warning at Giraffe_ADC.v(181): variable "ns" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 181
+Warning (10230): Verilog HDL assignment warning at Giraffe_ADC.v(386): truncated value with size 32 to match size of target (18) File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 386
+Info (12128): Elaborating entity "my_PLL" for hierarchy "my_PLL:u_my_PLL" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 93
 Info (12128): Elaborating entity "altpll" for hierarchy "my_PLL:u_my_PLL|altpll:altpll_component" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/my_PLL.v Line: 99
 Info (12130): Elaborated megafunction instantiation "my_PLL:u_my_PLL|altpll:altpll_component" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/my_PLL.v Line: 99
 Info (12133): Instantiated megafunction "my_PLL:u_my_PLL|altpll:altpll_component" with the following parameter: File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/my_PLL.v Line: 99
     Info (12134): Parameter "bandwidth_type" = "AUTO"
-    Info (12134): Parameter "clk0_divide_by" = "10"
+    Info (12134): Parameter "clk0_divide_by" = "1"
     Info (12134): Parameter "clk0_duty_cycle" = "50"
     Info (12134): Parameter "clk0_multiply_by" = "1"
     Info (12134): Parameter "clk0_phase_shift" = "0"
@@ -1121,17 +1069,17 @@ Info (12133): Instantiated megafunction "my_PLL:u_my_PLL|altpll:altpll_component
 Info (12021): Found 1 design units, including 1 entities, in source file db/my_pll_altpll.v
     Info (12023): Found entity 1: my_PLL_altpll File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/my_pll_altpll.v Line: 29
 Info (12128): Elaborating entity "my_PLL_altpll" for hierarchy "my_PLL:u_my_PLL|altpll:altpll_component|my_PLL_altpll:auto_generated" File: c:/intelfpga/18.1/quartus/libraries/megafunctions/altpll.tdf Line: 897
-Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:u_uart_tx" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 106
+Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:u_uart_tx" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 109
 Warning (276020): Inferred RAM node "my_memory_rtl_0" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
 Info (19000): Inferred 1 megafunctions from design logic
     Info (276029): Inferred altsyncram megafunction from the following design logic: "my_memory_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
         Info (286033): Parameter WIDTH_A set to 8
-        Info (286033): Parameter WIDTHAD_A set to 14
-        Info (286033): Parameter NUMWORDS_A set to 16384
+        Info (286033): Parameter WIDTHAD_A set to 19
+        Info (286033): Parameter NUMWORDS_A set to 400000
         Info (286033): Parameter WIDTH_B set to 8
-        Info (286033): Parameter WIDTHAD_B set to 14
-        Info (286033): Parameter NUMWORDS_B set to 16384
+        Info (286033): Parameter WIDTHAD_B set to 19
+        Info (286033): Parameter NUMWORDS_B set to 400000
         Info (286033): Parameter ADDRESS_ACLR_A set to NONE
         Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
         Info (286033): Parameter ADDRESS_ACLR_B set to NONE
@@ -1144,11 +1092,11 @@ Info (12130): Elaborated megafunction instantiation "altsyncram:my_memory_rtl_0"
 Info (12133): Instantiated megafunction "altsyncram:my_memory_rtl_0" with the following parameter:
     Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
     Info (12134): Parameter "WIDTH_A" = "8"
-    Info (12134): Parameter "WIDTHAD_A" = "14"
-    Info (12134): Parameter "NUMWORDS_A" = "16384"
+    Info (12134): Parameter "WIDTHAD_A" = "19"
+    Info (12134): Parameter "NUMWORDS_A" = "400000"
     Info (12134): Parameter "WIDTH_B" = "8"
-    Info (12134): Parameter "WIDTHAD_B" = "14"
-    Info (12134): Parameter "NUMWORDS_B" = "16384"
+    Info (12134): Parameter "WIDTHAD_B" = "19"
+    Info (12134): Parameter "NUMWORDS_B" = "400000"
     Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
     Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
     Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
@@ -1157,71 +1105,30 @@ Info (12133): Instantiated megafunction "altsyncram:my_memory_rtl_0" with the fo
     Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
     Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
     Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_bbi1.tdf
-    Info (12023): Found entity 1: altsyncram_bbi1 File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 31
-Info (12021): Found 1 design units, including 1 entities, in source file db/decode_jsa.tdf
-    Info (12023): Found entity 1: decode_jsa File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/decode_jsa.tdf Line: 22
-Info (12021): Found 1 design units, including 1 entities, in source file db/mux_3nb.tdf
-    Info (12023): Found entity 1: mux_3nb File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/mux_3nb.tdf Line: 22
-Warning (14284): Synthesized away the following node(s):
-    Warning (14285): Synthesized away the following RAM node(s):
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a0" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 46
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a1" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 74
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a2" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 102
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a3" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 130
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a4" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 158
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a5" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 186
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a6" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 214
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a7" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 242
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a8" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 270
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a9" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 298
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a10" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 326
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a11" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 354
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a12" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 382
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a13" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 410
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a14" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 438
-        Warning (14320): Synthesized away node "altsyncram:my_memory_rtl_0|altsyncram_bbi1:auto_generated|ram_block1a15" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_bbi1.tdf Line: 466
-Info (13000): Registers with preset signals will power-up high File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 264
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_3oi1.tdf
+    Info (12023): Found entity 1: altsyncram_3oi1 File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/altsyncram_3oi1.tdf Line: 31
+Info (12021): Found 1 design units, including 1 entities, in source file db/decode_jua.tdf
+    Info (12023): Found entity 1: decode_jua File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/decode_jua.tdf Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file db/mux_3pb.tdf
+    Info (12023): Found entity 1: mux_3pb File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/db/mux_3pb.tdf Line: 22
+Info (13000): Registers with preset signals will power-up high File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/uart_tx.v Line: 94
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LED_out[0]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 24
-    Warning (13410): Pin "LED_out[2]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 24
-    Warning (13410): Pin "LED_state[1]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 26
-    Warning (13410): Pin "LED_state[3]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 26
-    Warning (13410): Pin "tx2M" is stuck at VCC File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 30
-    Warning (13410): Pin "cap_comp_ena" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 45
-    Warning (13410): Pin "cap_wena" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 46
-    Warning (13410): Pin "cap_rena" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 47
-    Warning (13410): Pin "cap_sh_vin" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 48
-    Warning (13410): Pin "cap_position[0]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 49
-    Warning (13410): Pin "cap_position[1]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 49
-    Warning (13410): Pin "cap_position[2]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 49
-    Warning (13410): Pin "cap_position[3]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 49
-    Warning (13410): Pin "cap_position[4]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 49
-    Warning (13410): Pin "cap_coefficent_in[0]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 50
-    Warning (13410): Pin "cap_coefficent_in[1]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 50
-    Warning (13410): Pin "cap_coefficent_in[2]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 50
-    Warning (13410): Pin "cap_read_ack" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 52
+    Warning (13410): Pin "LED_state[3]" is stuck at GND File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 28
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 72 registers lost all their fanouts during netlist optimizations.
+Info (17049): 5 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 6 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "dout_adc[0]" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 41
-    Warning (15610): No output dependent on input pin "dout_adc[1]" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 41
-    Warning (15610): No output dependent on input pin "dout_adc[2]" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 41
-    Warning (15610): No output dependent on input pin "dout_adc[3]" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 41
-    Warning (15610): No output dependent on input pin "dout_adc[4]" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 41
-    Warning (15610): No output dependent on input pin "dout_adc[5]" File: C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/src/Giraffe_ADC.v Line: 41
-Info (21057): Implemented 166 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 11 input pins
-    Info (21059): Implemented 45 output pins
-    Info (21061): Implemented 109 logic cells
+Info (21057): Implemented 1322 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 20 input pins
+    Info (21059): Implemented 41 output pins
+    Info (21061): Implemented 868 logic cells
+    Info (21064): Implemented 392 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 60 warnings
-    Info: Peak virtual memory: 4831 megabytes
-    Info: Processing ended: Sun Oct 23 16:18:14 2022
-    Info: Elapsed time: 00:00:12
-    Info: Total CPU time (on all processors): 00:00:23
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 15 warnings
+    Info: Peak virtual memory: 5240 megabytes
+    Info: Processing ended: Sat Nov 19 08:54:43 2022
+    Info: Elapsed time: 00:00:16
+    Info: Total CPU time (on all processors): 00:00:26
 
 

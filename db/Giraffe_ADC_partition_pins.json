@@ -4,7 +4,15 @@
 			"name" : "Top",
 			"pins" : [
 				{
+					"name" : "LED_out[0]",
+					"strict" : false
+				},
+				{
 					"name" : "LED_out[1]",
+					"strict" : false
+				},
+				{
+					"name" : "LED_out[2]",
 					"strict" : false
 				},
 				{
@@ -88,7 +96,15 @@
 					"strict" : false
 				},
 				{
+					"name" : "LED_state[1]",
+					"strict" : false
+				},
+				{
 					"name" : "LED_state[2]",
+					"strict" : false
+				},
+				{
+					"name" : "tx2M",
 					"strict" : false
 				},
 				{
@@ -101,6 +117,42 @@
 				},
 				{
 					"name" : "adc_ena",
+					"strict" : false
+				},
+				{
+					"name" : "NOWA_adc[0]",
+					"strict" : false
+				},
+				{
+					"name" : "NOWA_adc[1]",
+					"strict" : false
+				},
+				{
+					"name" : "NOWA_adc[2]",
+					"strict" : false
+				},
+				{
+					"name" : "NOWA_adc[3]",
+					"strict" : false
+				},
+				{
+					"name" : "NOWA_adc[4]",
+					"strict" : false
+				},
+				{
+					"name" : "NOWA_adc[5]",
+					"strict" : false
+				},
+				{
+					"name" : "NOWA_adc[6]",
+					"strict" : false
+				},
+				{
+					"name" : "NOWA_adc[7]",
+					"strict" : false
+				},
+				{
+					"name" : "NOWA_adc[8]",
 					"strict" : false
 				},
 				{
@@ -125,6 +177,66 @@
 				},
 				{
 					"name" : "clk_50M",
+					"strict" : false
+				},
+				{
+					"name" : "sw_NOWA[0]",
+					"strict" : false
+				},
+				{
+					"name" : "sw_NOWA[1]",
+					"strict" : false
+				},
+				{
+					"name" : "sw_NOWA[2]",
+					"strict" : false
+				},
+				{
+					"name" : "sw_NOWA[3]",
+					"strict" : false
+				},
+				{
+					"name" : "sw_NOWA[4]",
+					"strict" : false
+				},
+				{
+					"name" : "sw_NOWA[5]",
+					"strict" : false
+				},
+				{
+					"name" : "sw_NOWA[6]",
+					"strict" : false
+				},
+				{
+					"name" : "sw_NOWA[7]",
+					"strict" : false
+				},
+				{
+					"name" : "sw_NOWA[8]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[1]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[3]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[2]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[0]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[5]",
+					"strict" : false
+				},
+				{
+					"name" : "dout_adc[4]",
 					"strict" : false
 				}
 			]
