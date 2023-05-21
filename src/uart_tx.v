@@ -46,7 +46,7 @@ module uart_tx
       	end
    	end
 //////////////  calculate the next state /////////////////
-	always @(cs, cnt_clk, wreq, nrst) begin
+	always @(cs, cnt_clk, wreq, nrst, cnt_bit) begin
 		if (nrst == 0) begin
 			ns = IDLE;
 		end begin
@@ -111,7 +111,7 @@ module uart_tx
 						cnt_clk <= cnt_clk + 1'b1;
 					end else begin
 						cnt_clk <= 32'd0;
-						cnt_bit <= cnt_bit + 1;
+						cnt_bit <= cnt_bit + 4'd1;
 					end
 				end
 				DATA : begin
@@ -120,7 +120,7 @@ module uart_tx
 						cnt_clk <= cnt_clk + 1'b1;
 					end else begin
 						cnt_clk <= 32'd0;
-						cnt_bit <= cnt_bit + 1;
+						cnt_bit <= cnt_bit + 4'd1;
 					end
 				end
 				STOP : begin
@@ -130,7 +130,7 @@ module uart_tx
 						cnt_clk <= cnt_clk + 1'b1;
 					end else begin
 						cnt_clk <= 32'd0;
-						cnt_bit <= cnt_bit + 1;
+						cnt_bit <= cnt_bit + 4'd1;
 					end
 				end
 				default : begin
