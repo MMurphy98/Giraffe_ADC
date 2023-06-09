@@ -1,6 +1,6 @@
 module Giraffe_ADC #(
     // Parameters for UART
-    parameter BAUDRATE = 115200,
+    parameter BAUDRATE = 256000,            // Maximum: 256000
     parameter FREQ = 50_000_000,
     parameter N_start = 1,
     parameter N_data = 8,
@@ -13,9 +13,11 @@ module Giraffe_ADC #(
     parameter NUM_DIV = 5_00,
 
     // Number of Sampled Points
-    parameter NUM_Sampled = 100_000
+    parameter NUM_Sampled = 102400
 )
 (
+
+
     //  FPGA Board
     input                   clk_50M,
     input                   nrst,
@@ -27,15 +29,14 @@ module Giraffe_ADC #(
     output [17:0]           LED_cnt_send,
     output [3:0]            LED_state,
 
-    
     // UART TX
     output                  tx2M,
-
+	 input						 rxfM,
 	 
-	
     // Control the ADC
     output                  rstn_adc,
     output                  clk_adc,
+	 output					    clk_ultra,
     output                  calib_ena_adc,
 	output				    adc_ena,
     output  [8:0]           NOWA_adc,
@@ -86,11 +87,18 @@ module Giraffe_ADC #(
     assign uart_wreq = uart_wreq_reg;
     assign uart_wdata = uart_wdata_reg;
     
-	my_PLL u_my_PLL (
+	my_PLL2 u_my_PLL (
         .areset                 (~nrst),
         .inclk0                 (clk_50M),
-        .c0                     (clk_adc)
+        .c0                     (clk_adc),      // 50MHz
+        .c1					    (clk_uart)      // 50MHz
     );
+//
+//    PLL_up inst_PLL_up (
+//        .areset                 (~nrst),
+//        .inclk0                 (clk_50M),
+//        .c0                     (clk_adc)
+//    );
 
   	uart_tx #(
         .BAUDRATE               (BAUDRATE), 
@@ -99,7 +107,7 @@ module Giraffe_ADC #(
         .N_data                 (N_data), 
         .N_stop                 (N_stop)) 
 	u_uart_tx (
-        .clk                    (clk_50M),
+        .clk                    (clk_uart),
         .nrst                   (nrst),
         .wreq	                (uart_wreq),
         .tx		                (tx2M),
@@ -108,14 +116,28 @@ module Giraffe_ADC #(
 
     );
 	 
-
+	uart_rx #(
+		.BAUDRATE(BAUDRATE), 
+		.FREQ(FREQ), 
+		.N_start(N_start), 
+		.N_data(N_data), 
+		.N_stop(N_stop))
+	Inst_uart_rx (
+	 		.clk    (clk_uart),
+	 		.nrst   (nrst),
+	 		.rx     (rxfM),
+	 		.rdata  (rdata),
+			.vld	(vld)           // reset whole A/D system via UART host;
+	   );
     
+	 
+	 
+	 
     reg [7:0] cnt_ena_period;
-//    reg [7:0] cnt_ena;
+//    reg [7:0] cnt_ena;            // set bit-width of cnt_ena = 8 for debug;
     reg [31:0] cnt_ena;
     
     reg leds_ena;
-
 
     reg [3:0]   cs,ns;
     // IDLE -> RESET -> SAMPLE -> SEND -> HOLD 
@@ -132,13 +154,25 @@ module Giraffe_ADC #(
     localparam RESET_PERIOD = 1_000;
 
     // Assign reg my_memory as M9K block memory 
-	(* regstyle = "M9K" *) reg [7:0] my_memory [memory_deepth-1:0];
+	(* regstyle = "M9K" *) reg [5:0] my_memory [memory_deepth-1:0];
 
     // ********************** FSM **********************
-    always @(posedge clk_50M or negedge nrst) begin
+    // always @(posedge clk_adc or negedge nrst) begin
+    //     if (!nrst) begin
+    //         cs <= IDLE;
+    //     end else if (clk_adc) begin
+    //         cs <= ns;
+    //     end
+    // end
+
+    always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             cs <= IDLE;
-        end else if (clk_50M) begin
+        end 
+//        else if (vld) begin
+//            cs <= IDLE;
+//        end 
+        else if (clk_adc) begin
             cs <= ns;
         end
     end
@@ -149,38 +183,46 @@ module Giraffe_ADC #(
     // ******** and reviceed memory_deepth acks from Chip
     // **** SEND -> HOLD: after sending memory_deepth data to PC
     // **** HOLD: waiting for reset 
-    always @(cs, nrst, cnt_ena, cnt_received, uart_cnt_send, cnt_reset) begin
+    always @(cs, nrst, cnt_ena, cnt_received, uart_cnt_send, cnt_reset, vld) begin
         if (!nrst) begin
             ns = IDLE;
-        end else begin
-            case (cs)
-                IDLE :
-                        ns = RESET;
+        end 
+        else begin
+            // if (vld) begin
+            //     ns = IDLE;
+            // end
+//            //else begin
+                case (cs)
+                    IDLE :
+                            ns = RESET;
 
-                RESET :
-                    if (cnt_reset == RESET_PERIOD)
-                        ns = SAMPLE;
-                    else
-                        ns = RESET;
-                
-                SAMPLE :
-                    if (cnt_ena == (NUM_Sampled ) && cnt_received == (memory_deepth))
-                        ns = SEND;
-                    else
-                        ns = SAMPLE;
-                
-                SEND :
-                    if (uart_cnt_send == (memory_deepth))
-                        ns = HOLD;
-                    else
-                        ns = SEND;
-                
-                HOLD :
-                        ns = HOLD;
+                    RESET :
+                        if (cnt_reset == RESET_PERIOD)
+                            ns = SAMPLE;
+                        else
+                            ns = RESET;
+                    
+                    SAMPLE :
+                        if (cnt_ena == (NUM_Sampled ) && cnt_received == (memory_deepth))
+                            ns = SEND;
+                        else
+                            ns = SAMPLE;
+                    
+                    SEND :
+                        if (uart_cnt_send == (memory_deepth))
+                            ns = HOLD;
+                        else
+                            ns = SEND;
+                    
+                    HOLD :
+                        if (vld) 
+                            ns = IDLE;
+                        else
+                            ns = HOLD;
 
-                default : ns = ns;
-            endcase
-        end
+                    default : ns = ns;
+                endcase
+            end
     end
 
     reg [31:0]  uart_cnt_clk;
@@ -189,7 +231,46 @@ module Giraffe_ADC #(
     reg leds_uart;
 
     //  Control the output signal to UART by FSM(SEND)
-    always @(posedge clk_50M or negedge nrst) begin
+    // always @(posedge clk_adc or negedge nrst) begin
+    //     if (!nrst) begin
+    //         uart_cnt_clk <= 32'd0; 
+    //         uart_wdata_reg <= 8'd0;
+    //         uart_wreq_reg <= 1'd0;
+    //         // uart_index <= 32'd0;
+    //         uart_cnt_send <= 32'd0;
+    //         leds_uart <= 1'd0;
+    //     end 
+    //     else if (ns == SEND) begin
+    //         if (uart_cnt_send < memory_deepth ) begin
+    //             if (uart_cnt_clk == uart_period * 11) begin
+    //                 uart_wdata_reg <= {2'b00,my_memory[uart_cnt_send]};
+    //                 uart_cnt_clk <= uart_cnt_clk + 32'd1;
+    //                 uart_wreq_reg <= 1'd0;
+    //             end else if (uart_cnt_clk == uart_period * 12) begin
+    //                 uart_wreq_reg <= 1'd1;
+    //                 uart_cnt_send <= uart_cnt_send + 32'd1; 
+    //                 uart_cnt_clk <= 32'd0;               
+    //             end else begin
+    //                 uart_cnt_clk <= uart_cnt_clk + 32'd1;
+    //                 uart_wreq_reg <= 1'd0;
+    //             end
+    //         end else begin
+    //             uart_wreq_reg <= 1'd0;
+    //             uart_cnt_clk <= uart_cnt_clk;
+    //             uart_cnt_send <= uart_cnt_send;
+    //             leds_uart <= 1'd1;  
+    //         end
+    //     end else if (ns == HOLD) begin
+    //             uart_wreq_reg <= 1'd0;
+    //             uart_cnt_clk <= uart_cnt_clk;
+    //             uart_cnt_send <= uart_cnt_send;
+    //             leds_uart <= 1'd1;           
+    //     end
+    // end
+
+    // genearte wreq and wdata for uart_tx
+    always @(posedge clk_uart or negedge nrst) begin
+
         if (!nrst) begin
             uart_cnt_clk <= 32'd0; 
             uart_wdata_reg <= 8'd0;
@@ -197,10 +278,19 @@ module Giraffe_ADC #(
             // uart_index <= 32'd0;
             uart_cnt_send <= 32'd0;
             leds_uart <= 1'd0;
-        end else if (ns == SEND) begin
+        end 
+        else if (vld) begin
+            uart_cnt_clk <= 32'd0; 
+            uart_wdata_reg <= 8'd0;
+            uart_wreq_reg <= 1'd0;
+            // uart_index <= 32'd0;
+            uart_cnt_send <= 32'd0;
+            leds_uart <= 1'd0;
+        end 
+        else if (ns == SEND) begin
             if (uart_cnt_send < memory_deepth ) begin
                 if (uart_cnt_clk == uart_period * 11) begin
-                    uart_wdata_reg <= my_memory[uart_cnt_send];
+                    uart_wdata_reg <= {2'b00,my_memory[uart_cnt_send]};
                     uart_cnt_clk <= uart_cnt_clk + 32'd1;
                     uart_wreq_reg <= 1'd0;
                 end else if (uart_cnt_clk == uart_period * 12) begin
@@ -223,48 +313,46 @@ module Giraffe_ADC #(
                 uart_cnt_send <= uart_cnt_send;
                 leds_uart <= 1'd1;           
         end
-
-
-        //     if (uart_cnt_clk == uart_period * 12) begin
-        //         uart_cnt_clk <= 32'd0;
-        //         if (uart_cnt_send < memory_deepth - 1 ) begin
-        //             uart_wreq_reg <= 1'd1;
-        //             uart_cnt_send <= uart_cnt_send + 32'd1;
-        //         end else begin
-        //             uart_wreq_reg <= 1'd0;
-        //             leds_uart <= 1'd1;
-        //         end
-        //     end else if (uart_cnt_clk == uart_period * 11) begin
-        //         if (uart_cnt_send < memory_deepth - 1 ) begin
-        //             uart_wdata_reg <= my_memory[uart_cnt_send];
-        //             uart_cnt_clk <= uart_cnt_clk + 32'd1;
-        //         end else begin
-        //             uart_wdata_reg <= 1'd0;
-        //         end
-        //     end else begin
-        //         uart_cnt_clk <= uart_cnt_clk + 32'd1;
-        //         uart_wdata_reg <= uart_wdata_reg;
-        //         uart_wreq_reg <= 1'd0;
-        //     end
-        // end else begin
-        //     uart_cnt_clk <= uart_cnt_clk; 
-        //     uart_wdata_reg <= uart_wdata_reg;
-        //     uart_wreq_reg <= uart_wreq_reg;
-        //     uart_cnt_send <= uart_cnt_send; 
-        //     leds_uart <= leds_uart;  
-        // end
-            
     end
 
     reg nrst_reg;
     reg [31:0] cnt_reset;
     reg leds_reset;
+    // always @(posedge clk_adc or negedge nrst) begin
+    //     if (!nrst) begin
+    //         cnt_reset <= 32'd0;
+    //         nrst_reg <= 1'd1;
+    //         leds_reset <= 1'd0;
+    //     end else if (ns == RESET) begin
+    //         if (cnt_reset < RESET_PERIOD) begin
+    //             cnt_reset <= cnt_reset + 32'd1;
+    //             nrst_reg <= 1'd0;
+    //             leds_reset <= 1'd1;
+    //         end else begin
+    //             cnt_reset <= cnt_reset;
+    //             nrst_reg <= 1'd1;
+    //             leds_reset <= 1'd0;
+    //         end
+    //     end else begin
+    //         cnt_reset <= cnt_reset;
+    //         nrst_reg <= 1'd1; 
+    //         leds_reset <= 1'd0;           
+    //     end
+    // end
+
+    // reset system before A/D;
     always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             cnt_reset <= 32'd0;
             nrst_reg <= 1'd1;
             leds_reset <= 1'd0;
-        end else if (ns == RESET) begin
+        end 
+        else if (vld) begin
+            cnt_reset <= 32'd0;
+            nrst_reg <= 1'd1;
+            leds_reset <= 1'd0;        
+        end
+        else if (ns == RESET) begin
             if (cnt_reset < RESET_PERIOD) begin
                 cnt_reset <= cnt_reset + 32'd1;
                 nrst_reg <= 1'd0;
@@ -279,17 +367,52 @@ module Giraffe_ADC #(
             nrst_reg <= 1'd1; 
             leds_reset <= 1'd0;           
         end
-        
     end
 
     //  Control the output signal to Chip by FSM(SAMPLE)
-	 always @(posedge clk_adc or negedge nrst) begin
+	//  always @(posedge clk_adc or negedge nrst) begin
+	// 	if (!nrst ) begin
+	// 		cnt_ena_period <= 8'd0;
+	// 		adc_ena_reg <= 1'd0;
+    //         cnt_ena <= 32'd0;	
+    //         leds_ena <= 1'd0;	
+	// 	end else if (ns == SAMPLE) begin
+    //         if (cnt_ena < NUM_Sampled) begin
+    //             if (cnt_ena_period == 8'd24) begin
+    //                 cnt_ena_period <= 8'd0;
+    //                 adc_ena_reg <= 1'd1;
+    //                 cnt_ena <= cnt_ena + 32'd1;
+            
+    //             end else begin
+    //                 cnt_ena_period <= cnt_ena_period + 8'd1;
+    //                 adc_ena_reg <= 1'd0;
+    //                 cnt_ena <= cnt_ena;
+    //             end
+    //         end else begin
+    //             adc_ena_reg <= 1'd0;
+    //             cnt_ena <= cnt_ena;
+    //             cnt_ena_period <= cnt_ena_period;
+    //             leds_ena <= 1'd1;
+
+    //         end
+    //     end 
+	// end
+
+    // send the adc_ena periodically and count the number
+    always @(posedge clk_adc or negedge nrst) begin
 		if (!nrst ) begin
 			cnt_ena_period <= 8'd0;
 			adc_ena_reg <= 1'd0;
             cnt_ena <= 32'd0;	
             leds_ena <= 1'd0;	
-		end else if (ns == SAMPLE) begin
+		end 
+        else if (vld) begin
+			cnt_ena_period <= 8'd0;
+			adc_ena_reg <= 1'd0;
+            cnt_ena <= 32'd0;	
+            leds_ena <= 1'd0;        
+        end
+        else if (ns == SAMPLE) begin
             if (cnt_ena < NUM_Sampled) begin
                 if (cnt_ena_period == 8'd24) begin
                     cnt_ena_period <= 8'd0;
@@ -310,25 +433,37 @@ module Giraffe_ADC #(
             end
         end 
 	end
-	 
+
+    // delay module to capture the posedge of ack;
+    // *_delay2 is unused;
     reg ack_unit_delay, adc_ack_delay;
 	reg ack_unit_delay2, adc_ack_delay2;
-    always @(posedge clk_50M or negedge nrst) begin
+    always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             ack_unit_delay <= 1'd0;
             adc_ack_delay <= 1'd0;
 
-        end else begin
+        end 
+        else if (vld) begin
+            ack_unit_delay <= 1'd0;
+            adc_ack_delay <= 1'd0;        
+        end
+        else begin
             ack_unit_delay <= ack_unit;
             adc_ack_delay <= adc_ack;
         end
     end
 
-    always @(posedge clk_50M or negedge nrst) begin
+    always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             ack_unit_delay2 <= 1'd0;
             adc_ack_delay2 <= 1'd0;
-        end else begin
+        end 
+        else if (vld) begin
+            ack_unit_delay2 <= 1'd0;
+            adc_ack_delay2 <= 1'd0;        
+        end
+        else begin
             ack_unit_delay2 <= ack_unit_delay;
             adc_ack_delay2 <= adc_ack_delay;
         end
@@ -342,20 +477,52 @@ module Giraffe_ADC #(
     reg leds_received; 
 
     //  Control the output signal to Chip by FSM(SAMPLE)
-    always @(posedge clk_50M or negedge nrst) begin
+    // always @(posedge clk_adc or negedge nrst) begin
+    //     if (!nrst) begin
+    //         cnt_received <= 32'd0;
+    //         leds_received <= 1'd0;
+
+    //     end else if (ns == SAMPLE) begin
+    //         if (sample_trigger == 1) begin
+    //             if (cnt_received < memory_deepth) begin
+    //                 cnt_received <= cnt_received + 32'd1;
+    //                 if (adc_ack) begin
+    //                     // use the highest bit 11 to represent the fourth data
+    //                     my_memory[cnt_received] <= {dout_adc};
+    //                 end else begin
+    //                     my_memory[cnt_received] <= {dout_adc};
+    //                 end
+    //                 leds_received <= 1'd1;
+                        
+    //             end else begin
+    //                 cnt_received <= cnt_received;
+    //             end
+    //         end
+    //     end else begin
+    //         leds_received <= 1'd0;
+    //     end
+    // end
+
+    //  count number of received ack and store the dout of adc
+    always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             cnt_received <= 32'd0;
             leds_received <= 1'd0;
 
-        end else if (ns == SAMPLE) begin
+        end 
+        else if (vld) begin
+            cnt_received <= 32'd0;
+            leds_received <= 1'd0;
+        end
+        else if (ns == SAMPLE) begin
             if (sample_trigger == 1) begin
                 if (cnt_received < memory_deepth) begin
                     cnt_received <= cnt_received + 32'd1;
                     if (adc_ack) begin
                         // use the highest bit 11 to represent the fourth data
-                        my_memory[cnt_received] <= {2'b11, dout_adc};
+                        my_memory[cnt_received] <= {dout_adc};
                     end else begin
-                        my_memory[cnt_received] <= {2'b00, dout_adc};
+                        my_memory[cnt_received] <= {dout_adc};
                     end
                     leds_received <= 1'd1;
                         
@@ -366,12 +533,12 @@ module Giraffe_ADC #(
         end else begin
             leds_received <= 1'd0;
         end
-
     end
+
 
     // Number of wait control
     reg [8:0]   NOWA_adc_reg;
-    always @(posedge clk_50M or negedge nrst) begin
+    always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             NOWA_adc_reg <= 9'd0;
         end else begin

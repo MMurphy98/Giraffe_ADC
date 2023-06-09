@@ -176,10 +176,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "clk_50M",
-					"strict" : false
-				},
-				{
 					"name" : "sw_NOWA[0]",
 					"strict" : false
 				},
@@ -216,6 +212,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "rxfM",
+					"strict" : false
+				},
+				{
 					"name" : "dout_adc[1]",
 					"strict" : false
 				},
@@ -232,11 +232,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "dout_adc[5]",
+					"name" : "dout_adc[4]",
 					"strict" : false
 				},
 				{
-					"name" : "dout_adc[4]",
+					"name" : "dout_adc[5]",
 					"strict" : false
 				}
 			]

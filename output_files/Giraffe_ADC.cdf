@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP4CE115F29) Path("C:/Users/mjg65/Documents/Quartus/Giraffe_ADC/output_files/") File("Giraffe_ADC.sof") MfrSpec(OpMask(1));
+		Device PartName(EP4CE115F29) Path("C:/Users/mjg65/Desktop/Giraffe_ADC-dev/output_files/") File("Giraffe_ADC.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

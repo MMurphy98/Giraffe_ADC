@@ -1,6 +1,6 @@
 |Giraffe_ADC
-clk_50M => clk_50M.IN2
-nrst => nrst.IN1
+clk_50M => clk_50M.IN1
+nrst => nrst.IN2
 calib_ena_FPGA => calib_ena_adc.DATAIN
 sw_NOWA[0] => NOWA_adc_reg[0].DATAIN
 sw_NOWA[1] => NOWA_adc_reg[1].DATAIN
@@ -38,8 +38,10 @@ LED_state[1] <= LED_state.DB_MAX_OUTPUT_PORT_TYPE
 LED_state[2] <= LED_state[2].DB_MAX_OUTPUT_PORT_TYPE
 LED_state[3] <= <GND>
 tx2M <= uart_tx:u_uart_tx.tx
+rxfM => rxfM.IN1
 rstn_adc <= nrst_reg.DB_MAX_OUTPUT_PORT_TYPE
-clk_adc <= my_PLL:u_my_PLL.c0
+clk_adc <= my_PLL2:u_my_PLL.c0
+clk_ultra <= <GND>
 calib_ena_adc <= calib_ena_FPGA.DB_MAX_OUTPUT_PORT_TYPE
 adc_ena <= adc_ena_reg.DB_MAX_OUTPUT_PORT_TYPE
 NOWA_adc[0] <= NOWA_adc_reg[0].DB_MAX_OUTPUT_PORT_TYPE
@@ -52,10 +54,6 @@ NOWA_adc[6] <= NOWA_adc_reg[6].DB_MAX_OUTPUT_PORT_TYPE
 NOWA_adc[7] <= NOWA_adc_reg[7].DB_MAX_OUTPUT_PORT_TYPE
 NOWA_adc[8] <= NOWA_adc_reg[8].DB_MAX_OUTPUT_PORT_TYPE
 adc_ack => ack_unit.IN0
-adc_ack => my_memory.data_a[7].DATAIN
-adc_ack => my_memory.data_a[6].DATAIN
-adc_ack => my_memory.DATAIN6
-adc_ack => my_memory.DATAIN7
 adc_ack_sub => ack_unit.IN1
 dout_adc[0] => my_memory.data_a[0].DATAIN
 dout_adc[0] => my_memory.DATAIN
@@ -72,19 +70,20 @@ dout_adc[5] => my_memory.DATAIN5
 cap_rstn <= nrst_reg.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|Giraffe_ADC|my_PLL:u_my_PLL
+|Giraffe_ADC|my_PLL2:u_my_PLL
 areset => areset.IN1
 inclk0 => sub_wire1[0].IN1
 c0 <= altpll:altpll_component.clk
+c1 <= altpll:altpll_component.clk
 
 
-|Giraffe_ADC|my_PLL:u_my_PLL|altpll:altpll_component
-inclk[0] => my_PLL_altpll:auto_generated.inclk[0]
-inclk[1] => my_PLL_altpll:auto_generated.inclk[1]
+|Giraffe_ADC|my_PLL2:u_my_PLL|altpll:altpll_component
+inclk[0] => my_PLL2_altpll:auto_generated.inclk[0]
+inclk[1] => my_PLL2_altpll:auto_generated.inclk[1]
 fbin => ~NO_FANOUT~
 pllena => ~NO_FANOUT~
 clkswitch => ~NO_FANOUT~
-areset => my_PLL_altpll:auto_generated.areset
+areset => my_PLL2_altpll:auto_generated.areset
 pfdena => ~NO_FANOUT~
 clkena[0] => ~NO_FANOUT~
 clkena[1] => ~NO_FANOUT~
@@ -138,7 +137,7 @@ fref <= <GND>
 icdrclk <= <GND>
 
 
-|Giraffe_ADC|my_PLL:u_my_PLL|altpll:altpll_component|my_PLL_altpll:auto_generated
+|Giraffe_ADC|my_PLL2:u_my_PLL|altpll:altpll_component|my_PLL2_altpll:auto_generated
 areset => pll1.ARESET
 clk[0] <= pll1.CLK
 clk[1] <= pll1.CLK1
@@ -255,5 +254,119 @@ wdata[6] => wdata_reg.DATAB
 wdata[7] => wdata_reg.DATAB
 tx <= tx_reg.DB_MAX_OUTPUT_PORT_TYPE
 rdy <= always2.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|Giraffe_ADC|uart_rx:Inst_uart_rx
+clk => vld_reg.CLK
+clk => rdata_reg[0].CLK
+clk => rdata_reg[1].CLK
+clk => rdata_reg[2].CLK
+clk => rdata_reg[3].CLK
+clk => rdata_reg[4].CLK
+clk => rdata_reg[5].CLK
+clk => rdata_reg[6].CLK
+clk => rdata_reg[7].CLK
+clk => cnt_bit[0].CLK
+clk => cnt_bit[1].CLK
+clk => cnt_bit[2].CLK
+clk => cnt_bit[3].CLK
+clk => cnt_clk[0].CLK
+clk => cnt_clk[1].CLK
+clk => cnt_clk[2].CLK
+clk => cnt_clk[3].CLK
+clk => cnt_clk[4].CLK
+clk => cnt_clk[5].CLK
+clk => cnt_clk[6].CLK
+clk => cnt_clk[7].CLK
+clk => cnt_clk[8].CLK
+clk => cnt_clk[9].CLK
+clk => cnt_clk[10].CLK
+clk => cnt_clk[11].CLK
+clk => cnt_clk[12].CLK
+clk => cnt_clk[13].CLK
+clk => cnt_clk[14].CLK
+clk => cnt_clk[15].CLK
+clk => cnt_clk[16].CLK
+clk => cnt_clk[17].CLK
+clk => cnt_clk[18].CLK
+clk => cnt_clk[19].CLK
+clk => cnt_clk[20].CLK
+clk => cnt_clk[21].CLK
+clk => cnt_clk[22].CLK
+clk => cnt_clk[23].CLK
+clk => cnt_clk[24].CLK
+clk => cnt_clk[25].CLK
+clk => cnt_clk[26].CLK
+clk => cnt_clk[27].CLK
+clk => cnt_clk[28].CLK
+clk => cnt_clk[29].CLK
+clk => cnt_clk[30].CLK
+clk => cnt_clk[31].CLK
+clk => flag.CLK
+nrst => cnt_clk[0].ACLR
+nrst => cnt_clk[1].ACLR
+nrst => cnt_clk[2].ACLR
+nrst => cnt_clk[3].ACLR
+nrst => cnt_clk[4].ACLR
+nrst => cnt_clk[5].ACLR
+nrst => cnt_clk[6].ACLR
+nrst => cnt_clk[7].ACLR
+nrst => cnt_clk[8].ACLR
+nrst => cnt_clk[9].ACLR
+nrst => cnt_clk[10].ACLR
+nrst => cnt_clk[11].ACLR
+nrst => cnt_clk[12].ACLR
+nrst => cnt_clk[13].ACLR
+nrst => cnt_clk[14].ACLR
+nrst => cnt_clk[15].ACLR
+nrst => cnt_clk[16].ACLR
+nrst => cnt_clk[17].ACLR
+nrst => cnt_clk[18].ACLR
+nrst => cnt_clk[19].ACLR
+nrst => cnt_clk[20].ACLR
+nrst => cnt_clk[21].ACLR
+nrst => cnt_clk[22].ACLR
+nrst => cnt_clk[23].ACLR
+nrst => cnt_clk[24].ACLR
+nrst => cnt_clk[25].ACLR
+nrst => cnt_clk[26].ACLR
+nrst => cnt_clk[27].ACLR
+nrst => cnt_clk[28].ACLR
+nrst => cnt_clk[29].ACLR
+nrst => cnt_clk[30].ACLR
+nrst => cnt_clk[31].ACLR
+nrst => rdata_reg[0].ACLR
+nrst => rdata_reg[1].ACLR
+nrst => rdata_reg[2].ACLR
+nrst => rdata_reg[3].ACLR
+nrst => rdata_reg[4].ACLR
+nrst => rdata_reg[5].ACLR
+nrst => rdata_reg[6].ACLR
+nrst => rdata_reg[7].ACLR
+nrst => vld_reg.ACLR
+nrst => flag.ACLR
+nrst => cnt_bit[0].ACLR
+nrst => cnt_bit[1].ACLR
+nrst => cnt_bit[2].ACLR
+nrst => cnt_bit[3].ACLR
+rx => always0.IN1
+rx => rdata_reg.DATAB
+rx => rdata_reg.DATAB
+rx => rdata_reg.DATAB
+rx => rdata_reg.DATAB
+rx => rdata_reg.DATAB
+rx => rdata_reg.DATAB
+rx => rdata_reg.DATAB
+rx => rdata_reg.DATAB
+rx => always0.IN1
+rdata[0] <= rdata_reg[0].DB_MAX_OUTPUT_PORT_TYPE
+rdata[1] <= rdata_reg[1].DB_MAX_OUTPUT_PORT_TYPE
+rdata[2] <= rdata_reg[2].DB_MAX_OUTPUT_PORT_TYPE
+rdata[3] <= rdata_reg[3].DB_MAX_OUTPUT_PORT_TYPE
+rdata[4] <= rdata_reg[4].DB_MAX_OUTPUT_PORT_TYPE
+rdata[5] <= rdata_reg[5].DB_MAX_OUTPUT_PORT_TYPE
+rdata[6] <= rdata_reg[6].DB_MAX_OUTPUT_PORT_TYPE
+rdata[7] <= rdata_reg[7].DB_MAX_OUTPUT_PORT_TYPE
+vld <= vld_reg.DB_MAX_OUTPUT_PORT_TYPE
 
 

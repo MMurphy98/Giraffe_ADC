@@ -38,14 +38,14 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
-create_clock -name {clk_50M} -period 20.000 -waveform { 0.000 10.000 } [get_ports {clk_50M}]
+create_clock -name {clk_50M} -period 20 -waveform { 0.000 10.000 } [get_ports {clk_50M}]
 
 
 #**************************************************************
 # Create Generated Clock
 #**************************************************************
 
-create_generated_clock -name {u_my_PLL|altpll_component|auto_generated|pll1|clk[0]} -source [get_pins {u_my_PLL|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50/1 -multiply_by 1 -divide_by 5000 -master_clock {clk_50M} [get_pins {u_my_PLL|altpll_component|auto_generated|pll1|clk[0]}] 
+# create_generated_clock -name {u_my_PLL|altpll_component|auto_generated|pll1|clk[0]} -source [get_pins {u_my_PLL|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50/1 -multiply_by 1 -divide_by 5000 -master_clock {clk_50M} [get_pins {u_my_PLL|altpll_component|auto_generated|pll1|clk[0]}] 
 
 
 #**************************************************************
@@ -83,6 +83,7 @@ set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dou
 set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dout_adc[3]}]
 set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dout_adc[4]}]
 set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {dout_adc[5]}]
+set_input_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {rxfM}]
 
 
 #**************************************************************
@@ -132,6 +133,8 @@ set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {ad
 set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  2.000 [get_ports {cap_rstn}]
 
 set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  1.000 [get_ports {clk_adc}]
+
+set_output_delay -add_delay  -clock [get_clocks {clk_50M}]  1.000 [get_ports {clk_ultra}]
 
 #**************************************************************
 # Set Clock Groups
