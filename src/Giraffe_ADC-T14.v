@@ -1,6 +1,6 @@
 module Giraffe_ADC #(
     // Parameters for UART
-    parameter BAUDRATE = 256000,            // Maximum: 256000
+    parameter BAUDRATE = 256000,
     parameter FREQ = 50_000_000,
     parameter N_start = 1,
     parameter N_data = 8,
@@ -90,8 +90,8 @@ module Giraffe_ADC #(
 	my_PLL2 u_my_PLL (
         .areset                 (~nrst),
         .inclk0                 (clk_50M),
-        .c0                     (clk_adc),      // 50MHz
-        .c1					    (clk_uart)      // 50MHz
+        .c0                     (clk_adc),
+		  .c1							  (clk_uart)
     );
 //
 //    PLL_up inst_PLL_up (
@@ -127,14 +127,14 @@ module Giraffe_ADC #(
 	 		.nrst   (nrst),
 	 		.rx     (rxfM),
 	 		.rdata  (rdata),
-			.vld	(vld)           // reset whole A/D system via UART host;
+			.vld		(vld)
 	   );
     
 	 
 	 
 	 
     reg [7:0] cnt_ena_period;
-//    reg [7:0] cnt_ena;            // set bit-width of cnt_ena = 8 for debug;
+//    reg [7:0] cnt_ena;
     reg [31:0] cnt_ena;
     
     reg leds_ena;
@@ -268,7 +268,7 @@ module Giraffe_ADC #(
     //     end
     // end
 
-    // genearte wreq and wdata for uart_tx
+    // always @(posedge clk_adc or negedge nrst) begin
     always @(posedge clk_uart or negedge nrst) begin
 
         if (!nrst) begin
@@ -340,7 +340,6 @@ module Giraffe_ADC #(
     //     end
     // end
 
-    // reset system before A/D;
     always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             cnt_reset <= 32'd0;
@@ -397,8 +396,6 @@ module Giraffe_ADC #(
     //         end
     //     end 
 	// end
-
-    // send the adc_ena periodically and count the number
     always @(posedge clk_adc or negedge nrst) begin
 		if (!nrst ) begin
 			cnt_ena_period <= 8'd0;
@@ -434,8 +431,6 @@ module Giraffe_ADC #(
         end 
 	end
 
-    // delay module to capture the posedge of ack;
-    // *_delay2 is unused;
     reg ack_unit_delay, adc_ack_delay;
 	reg ack_unit_delay2, adc_ack_delay2;
     always @(posedge clk_adc or negedge nrst) begin
@@ -503,7 +498,6 @@ module Giraffe_ADC #(
     //     end
     // end
 
-    //  count number of received ack and store the dout of adc
     always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             cnt_received <= 32'd0;

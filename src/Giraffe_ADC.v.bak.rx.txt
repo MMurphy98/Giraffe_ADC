@@ -1,6 +1,6 @@
 module Giraffe_ADC #(
     // Parameters for UART
-    parameter BAUDRATE = 256000,            // Maximum: 256000
+    parameter BAUDRATE = 115200,
     parameter FREQ = 50_000_000,
     parameter N_start = 1,
     parameter N_data = 8,
@@ -13,11 +13,9 @@ module Giraffe_ADC #(
     parameter NUM_DIV = 5_00,
 
     // Number of Sampled Points
-    parameter NUM_Sampled = 102400
+    parameter NUM_Sampled = 125000
 )
 (
-
-
     //  FPGA Board
     input                   clk_50M,
     input                   nrst,
@@ -29,10 +27,13 @@ module Giraffe_ADC #(
     output [17:0]           LED_cnt_send,
     output [3:0]            LED_state,
 
+    
     // UART TX
     output                  tx2M,
 	 input						 rxfM,
 	 
+	 
+	
     // Control the ADC
     output                  rstn_adc,
     output                  clk_adc,
@@ -87,18 +88,12 @@ module Giraffe_ADC #(
     assign uart_wreq = uart_wreq_reg;
     assign uart_wdata = uart_wdata_reg;
     
-	my_PLL2 u_my_PLL (
+	my_PLL u_my_PLL (
         .areset                 (~nrst),
         .inclk0                 (clk_50M),
-        .c0                     (clk_adc),      // 50MHz
-        .c1					    (clk_uart)      // 50MHz
+        .c0                     (clk_adc),
+		  .c1							  (clk_ultra)
     );
-//
-//    PLL_up inst_PLL_up (
-//        .areset                 (~nrst),
-//        .inclk0                 (clk_50M),
-//        .c0                     (clk_adc)
-//    );
 
   	uart_tx #(
         .BAUDRATE               (BAUDRATE), 
@@ -107,7 +102,7 @@ module Giraffe_ADC #(
         .N_data                 (N_data), 
         .N_stop                 (N_stop)) 
 	u_uart_tx (
-        .clk                    (clk_uart),
+        .clk                    (clk_50M),
         .nrst                   (nrst),
         .wreq	                (uart_wreq),
         .tx		                (tx2M),
@@ -116,6 +111,7 @@ module Giraffe_ADC #(
 
     );
 	 
+
 	uart_rx #(
 		.BAUDRATE(BAUDRATE), 
 		.FREQ(FREQ), 
@@ -123,18 +119,17 @@ module Giraffe_ADC #(
 		.N_data(N_data), 
 		.N_stop(N_stop))
 	Inst_uart_rx (
-	 		.clk    (clk_uart),
+	 		.clk    (clk_50M),
 	 		.nrst   (nrst),
 	 		.rx     (rxfM),
 	 		.rdata  (rdata),
-			.vld	(vld)           // reset whole A/D system via UART host;
+			.vld		(vld)
 	   );
     
 	 
 	 
-	 
     reg [7:0] cnt_ena_period;
-//    reg [7:0] cnt_ena;            // set bit-width of cnt_ena = 8 for debug;
+//    reg [7:0] cnt_ena;
     reg [31:0] cnt_ena;
     
     reg leds_ena;
@@ -191,7 +186,7 @@ module Giraffe_ADC #(
             // if (vld) begin
             //     ns = IDLE;
             // end
-//            //else begin
+            else begin
                 case (cs)
                     IDLE :
                             ns = RESET;
@@ -223,6 +218,7 @@ module Giraffe_ADC #(
                     default : ns = ns;
                 endcase
             end
+        end
     end
 
     reg [31:0]  uart_cnt_clk;
@@ -268,9 +264,7 @@ module Giraffe_ADC #(
     //     end
     // end
 
-    // genearte wreq and wdata for uart_tx
-    always @(posedge clk_uart or negedge nrst) begin
-
+    always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             uart_cnt_clk <= 32'd0; 
             uart_wdata_reg <= 8'd0;
@@ -340,7 +334,6 @@ module Giraffe_ADC #(
     //     end
     // end
 
-    // reset system before A/D;
     always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             cnt_reset <= 32'd0;
@@ -397,8 +390,6 @@ module Giraffe_ADC #(
     //         end
     //     end 
 	// end
-
-    // send the adc_ena periodically and count the number
     always @(posedge clk_adc or negedge nrst) begin
 		if (!nrst ) begin
 			cnt_ena_period <= 8'd0;
@@ -434,8 +425,6 @@ module Giraffe_ADC #(
         end 
 	end
 
-    // delay module to capture the posedge of ack;
-    // *_delay2 is unused;
     reg ack_unit_delay, adc_ack_delay;
 	reg ack_unit_delay2, adc_ack_delay2;
     always @(posedge clk_adc or negedge nrst) begin
@@ -503,7 +492,6 @@ module Giraffe_ADC #(
     //     end
     // end
 
-    //  count number of received ack and store the dout of adc
     always @(posedge clk_adc or negedge nrst) begin
         if (!nrst) begin
             cnt_received <= 32'd0;
