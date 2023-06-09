@@ -1,0 +1,48 @@
+module uart_rx 
+    #(
+        parameter BAUDRATE = 1_200_000,
+        parameter FREQ = 50_000_000,
+        parameter N_start = 1,
+        parameter N_stop = 1,
+        parameter N_data = 8
+    )          
+    (
+        input clk,
+        input rst_n,
+        input rx,
+        output [N_data-1:0] rdata,
+        output vld
+    );
+    
+    localparam T = FREQ / BAUDRATE;
+    
+    reg [N_data-1:0] rdata_reg;
+    reg vld_reg;
+    reg [3:0] cnt_bit;
+    reg [31:0] cnt_clk;
+
+    assign  end_cnt_clk = cnt_clk == T-1;
+    assign  end_cnt_bit = end_cnt_clk && cnt_bit == (N_start + N_data + N_stop  - 1);
+    
+    assign rdate = rdata_reg;
+    assign vld = vld_reg;
+    
+    reg RS = 0;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (rst_n == 0)
+            RS <=0;
+        else if (RS == 0 && rx == 0)
+            RS <= 1;
+        else if (cnt_bit == 1-1 && cnt_clk == T/2 -1 && rx == 1)
+            RS <= 0;
+        else if (end_cnt_bit)
+            RS <= 0;
+        else
+            RS <= RS;
+    end
+
+
+
+
+endmodule

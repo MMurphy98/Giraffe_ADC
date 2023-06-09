@@ -13,15 +13,16 @@
 - `New`： 完成了低速ADC的数据接收工作，UART工作模式为**先读后写模式**，即接收到ADC数据时先往片上**MEMORY**中写入数据，并设置读写个数，再从**MEMORY**中读出数据发送；
   
     - 使用片上PLL IP驱动时钟输出端口，由`my_PLL.v`文件创建实例，输出时钟速度由`altpll_component.clk0_divide_by`确定，目前为10，即输出时钟为**0.5MHz**；
-  
+    
     - ADC的使能信号工作模式为**计数输出模式**， 即`adc_ena`信号不由`adc_ack`信号触发，而是对`clk_adc`时钟计数完成，由计数器`cnt_ena_period`控制，目前为**25*clk_adc**触发1次采样；
 
     - 添加了对输入输出IO的引脚约束，由`Giraffe_ADC.qsf`文件控制；
     
     - 添加了对输入输出IO的时序约束，由`Giraffe_ADC.out.sdc`文件控制；
 
-- `dev`：在`New`的基础上增加了关于 Inter-stage Amplifier等待时间的控制逻辑，根据**9个Switches**来输出控制电压，控制3次放大的等待时间；
-
+- `UART`：在`New`的基础上增加了关于 Inter-stage Amplifier等待时间的控制逻辑，根据**9个Switches**来输出控制电压，控制3次放大的等待时间；
+  - 添加 `uart_rx` 模块用于响应来自串口上位机的指令，目前对该指令的响应只有进入reset模式，重新进行采样、传输，即对所有指令都是如此。
+![Giraffe_ADC](.\Giraffe_ADC.png)
 
 
 ## TODO

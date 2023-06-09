@@ -62,11 +62,14 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 # -------------------------------------------------------
 # Pins location assignments
 
+# set_location_assignment PIN_AH14 -to clk_50M
 set_location_assignment PIN_Y2 -to clk_50M
 set_location_assignment PIN_R24 -to nrst
 set_location_assignment PIN_Y23 -to calib_ena_FPGA
 set_location_assignment PIN_AE23 -to clk_adc
 set_location_assignment PIN_G9 -to tx2M
+set_location_assignment PIN_G12 -to rxfM
+
 
 set_location_assignment PIN_E24 -to LED_out[3]
 set_location_assignment PIN_E25 -to LED_out[2]
@@ -134,11 +137,6 @@ set_location_assignment PIN_AF24 -to cap_rstn
 set_global_assignment -name ENABLE_SIGNALTAP OFF
 set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
 
-set_global_assignment -name SDC_FILE Giraffe_ADC.out.sdc
-set_global_assignment -name VERILOG_FILE src/uart_tx.v
-set_global_assignment -name VERILOG_FILE src/Giraffe_ADC.v
-set_global_assignment -name VERILOG_FILE src/clk_div.v
-set_global_assignment -name QIP_FILE my_PLL.qip
 
 # -------------------------------------------------------
 # Current Strength Settings
@@ -147,6 +145,8 @@ set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to nrst
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to calib_ena_FPGA
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to clk_adc
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to tx2M
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to rxfM
+
 
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LED_state[3]
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LED_state[2]
@@ -208,6 +208,8 @@ set_instance_assignment -name SLEW_RATE 2 -to nrst
 set_instance_assignment -name SLEW_RATE 2 -to calib_ena_FPGA
 set_instance_assignment -name SLEW_RATE 2 -to clk_adc
 set_instance_assignment -name SLEW_RATE 2 -to tx2M
+set_instance_assignment -name SLEW_RATE 2 -to rxfM
+
 
 set_instance_assignment -name SLEW_RATE 2 -to LED_state[3]
 set_instance_assignment -name SLEW_RATE 2 -to LED_state[2]
@@ -268,6 +270,8 @@ set_instance_assignment -name IO_STANDARD "2.5 V" -to nrst
 set_instance_assignment -name IO_STANDARD "2.5 V" -to calib_ena_FPGA
 set_instance_assignment -name IO_STANDARD "2.5 V" -to clk_adc
 set_instance_assignment -name IO_STANDARD "2.5 V" -to tx2M
+set_instance_assignment -name IO_STANDARD "2.5 V" -to rxfM
+
 
 set_instance_assignment -name IO_STANDARD "2.5 V" -to LED_out[3]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to LED_out[2]
@@ -330,4 +334,15 @@ set_instance_assignment -name IO_STANDARD "2.5 V" -to cap_rstn
 
 # -------------------------------------------------------
 
+set_location_assignment PIN_AD19 -to clk_ultra
+set_instance_assignment -name IO_STANDARD "2.5 V" -to clk_ultra
+
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to clk_ultra
+set_global_assignment -name VERILOG_FILE src/uart_rx.v
+set_global_assignment -name SDC_FILE Giraffe_ADC.out.sdc
+set_global_assignment -name VERILOG_FILE src/uart_tx.v
+set_global_assignment -name VERILOG_FILE src/Giraffe_ADC.v
+set_global_assignment -name VERILOG_FILE src/clk_div.v
+set_global_assignment -name QIP_FILE my_PLL.qip
+set_global_assignment -name QIP_FILE my_PLL2.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
